@@ -16,7 +16,6 @@ public class Card implements Comparable<Card>
             throw new IllegalArgumentException("Value out of range.");
         }
 
-
         this.SUIT = suit;
         this.VALUE = value;
         this.hidden = hidden;
@@ -51,7 +50,7 @@ public class Card implements Comparable<Card>
         return VALUE - card.getValue();
     }
 
-    public boolean colorEquals(Card card){
+    public boolean colourEquals(Card card){
         return SUIT.getColour() == card.getSuit().getColour();
     }
 }
