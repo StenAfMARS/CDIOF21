@@ -4,7 +4,7 @@ public interface StackADT<T> {
 
     public void push(T value);
 
-    public void pop(T value);
+    public T pop();
 
-    public void peek();
+    public T peek();
 }
