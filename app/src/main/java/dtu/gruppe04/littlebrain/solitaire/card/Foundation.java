@@ -21,6 +21,5 @@ public class Foundation extends StackOfCards {
                 throw new IllegalArgumentException();
             }
         }
-        
     }
 }
