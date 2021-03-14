@@ -82,11 +82,10 @@ public class Stack<T> implements StackADT<T> {
         if(stack == null || stack.isEmpty()){
             return;
         }
-        //So that the given stack is unmodified. It is reversed so that the
-        //the elements are added in the proper order.
+
         Stack<T> temp = stack.reverseCopy();
         while(!temp.isEmpty()){
-            push(temp.pop()); //We append each element of the
+            push(temp.pop()); //We append each element
         }
     }
 
