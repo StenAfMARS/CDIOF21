@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import timber.log.Timber;
+
 public class MainActivity extends AppCompatActivity  implements View.OnClickListener {
 
     @Override
