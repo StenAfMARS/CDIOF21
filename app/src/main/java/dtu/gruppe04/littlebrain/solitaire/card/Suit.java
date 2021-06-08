@@ -20,4 +20,6 @@ public enum  Suit {
                 return Color.BLACK;
         }
     }
+
+
 }
