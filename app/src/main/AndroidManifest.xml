@@ -7,8 +7,9 @@
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.LittleBrain" >
-        <activity android:name=".playActivity"></activity>
+        android:theme="@style/Theme.LittleBrain">
+        <activity android:name=".ShowBoard"></activity>
+        <activity android:name=".playActivity" />
         <activity android:name=".RulesActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
