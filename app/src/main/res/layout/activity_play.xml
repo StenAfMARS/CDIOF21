@@ -4,6 +4,48 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".playActivity">
+    tools:context="Activity.playActivity">
+
+    <GridView
+        android:id="@+id/gridviewbutton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
+
+        android:columnWidth="25dp"
+        android:gravity="center"
+        android:horizontalSpacing="15dp"
+        android:numColumns="7"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="-10dp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gridviewtop">
+
+    </GridView>
+
+    <GridView
+        android:id="@+id/gridviewtop"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="76dp"
+        android:layout_marginEnd="20dp"
+        android:columnWidth="25dp"
+        android:gravity="center"
+        android:horizontalSpacing="15dp"
+        android:numColumns="7"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="-10dp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
