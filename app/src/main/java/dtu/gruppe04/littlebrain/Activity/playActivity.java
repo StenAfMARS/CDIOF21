@@ -12,6 +12,7 @@ public class playActivity extends AppCompatActivity {
 
 
     InputAdapter inputAdapter;
+    InputAdapter inputTop;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,22 +23,23 @@ public class playActivity extends AppCompatActivity {
     }
 
     private void initGridView(){
-        final String[] charArray = new String[]{"24", "", "", "♥", "♦", "♣", "♠","", "", "", "", "", "", "","A♥", "", "", "", "", "", "", "", "5♥", "", "", "", "", "", "", "", "9♣", "", "", "", "", "", "", "", "10♠", "", "", "", "", "", "", "", "3♦", "", "", "", "", "", "", "", "s", "", "", "", "", "", "", "", "b"};
+        final String[] charArray = new String[]{"A♥", "", "", "", "", "", "", "", "5♥", "", "", "", "", "", "", "", "9♣", "", "", "", "", "", "", "", "10♠", "", "", "", "", "", "", "", "3♦", "", "", "", "", "", "", "", "s", "", "", "", "", "", "", "", "b"};
+        final String[] charArrayForTop = new String[]{"24", "", "", "♥", "♦", "♣", "♠"};
 
+        final GridView gridView = findViewById(R.id.gridviewbutton);
+        final GridView gridViewtop = findViewById(R.id.gridviewtop);
 
-        final GridView gridView = findViewById(R.id.gridview);
         inputAdapter = new InputAdapter(this, charArray);
+        inputTop = new InputAdapter(this, charArrayForTop);
+
         gridView.setAdapter(inputAdapter);
-
-        inputAdapter.setUsed(2, true);
-
-        for (int i = 7; i < 14; i++) {
-            inputAdapter.setUsed(i, true);
-        }
+        gridViewtop.setAdapter(inputTop);
+        
+        inputTop.setUsed(2, true);
 
         for (int i = 0; i < 7; i++) {
             for (int j = i + 1; j < 7; j++) {
-                inputAdapter.setUsed(i+j*7+14, true);
+                inputAdapter.setUsed(i+j*7, true);
             }
         }
 
