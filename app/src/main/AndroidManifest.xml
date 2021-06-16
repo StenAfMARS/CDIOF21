@@ -8,10 +8,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.LittleBrain">
-        <activity android:name=".ShowBoard"></activity>
-        <activity android:name=".playActivity" />
-        <activity android:name=".RulesActivity" />
-        <activity android:name=".MainActivity">
+        android:theme="@style/Theme.LittleBrain" >
+        <activity android:name=".Activity.ShowBoard"></activity>
+        <activity android:name=".Activity.playActivity"></activity>
+        <activity android:name=".Activity.RulesActivity" />
+        <activity android:name=".Activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
