@@ -7,8 +7,8 @@ import dtu.gruppe04.littlebrain.solitaire.card.Card;
 import dtu.gruppe04.littlebrain.solitaire.card.Suit;
 
 public class Klondike {
-    Card[][] piles;
-    int [] topPos;
+    public Card[][] piles;
+    public int [] topPos;
 
     /*
     0 facedown
