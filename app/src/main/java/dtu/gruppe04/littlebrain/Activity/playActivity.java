@@ -7,10 +7,12 @@ import android.widget.GridView;
 
 import dtu.gruppe04.littlebrain.Adapter.InputAdapter;
 import dtu.gruppe04.littlebrain.R;
+import dtu.gruppe04.littlebrain.solitaire.Klondike;
 import dtu.gruppe04.littlebrain.solitaire.card.Card;
 
 public class playActivity extends AppCompatActivity {
 
+    Klondike klondike;
 
     InputAdapter inputMain;
     InputAdapter inputTop;
@@ -23,12 +25,17 @@ public class playActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
 
+        klondike = new Klondike();
+
         initGridView();
     }
 
     private void initGridView(){
         final GridView gridViewMain = findViewById(R.id.gridviewbutton);
         final GridView gridViewTop = findViewById(R.id.gridviewtop);
+
+        charArray = new String[52*7];
+        charArrayForTop = new String[]{"24", "", "", "♥", "♦", "♣", "♠"};
 
         inputMain = new InputAdapter(this, charArray);
         inputTop = new InputAdapter(this, charArrayForTop);
@@ -38,11 +45,7 @@ public class playActivity extends AppCompatActivity {
         
         inputTop.setUsed(2, true);
 
-        for (int i = 0; i < 7; i++) {
-            for (int j = i + 1; j < 7; j++) {
-                inputMain.setUsed(i+j*7, true);
-            }
-        }
+        UpdateGridView(klondike.piles, klondike.topPos);
 
         gridViewMain.setOnItemClickListener((parent, view, position, id) -> {
             String input = charArray[position];
@@ -50,10 +53,17 @@ public class playActivity extends AppCompatActivity {
     }
 
     private void UpdateGridView(Card[][] piles, int [] topPos){
+        for (int i = 2; i < 9; i++) {
+            for (int j = 0; j < 52; j++) {
+                if (j <= topPos[i]){
+                    charArray[i+j*7-2] = piles[i][j].getValue() +  piles[i][j].getSuit().toString();
+                    inputMain.setUsed(i+j*7-2,false);
+                }
+                else
+                    inputMain.setUsed(i+j*7-2,true);
+            }
+        }
 
-        charArray = new String[]{"A♥", "", "", "", "", "", "", "", "5♥", "", "", "", "", "", "", "", "9♣", "", "", "", "", "", "", "", "10♠", "", "", "", "", "", "", "", "3♦", "", "", "", "", "", "", "", "s", "", "", "", "", "", "", "", "b"};
 
-
-        charArrayForTop = new String[]{"24", "", "", "♥", "♦", "♣", "♠"};
     }
 }
