@@ -49,7 +49,7 @@ public class playActivity extends AppCompatActivity {
         });
     }
 
-    private void UpdateGridView(Card[][] piles, int [] topPos;){
+    private void UpdateGridView(Card[][] piles, int [] topPos){
 
         charArray = new String[]{"A♥", "", "", "", "", "", "", "", "5♥", "", "", "", "", "", "", "", "9♣", "", "", "", "", "", "", "", "10♠", "", "", "", "", "", "", "", "3♦", "", "", "", "", "", "", "", "s", "", "", "", "", "", "", "", "b"};
 
