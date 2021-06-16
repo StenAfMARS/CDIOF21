@@ -67,6 +67,38 @@ public class playActivity extends AppCompatActivity {
             }
         }
 
-
+        charArrayForTop = new String[]{"24", "", "", "♥", "♦", "♣", "♠"};
+        //                              0     1       9    10   11   12
+        charArrayForTop[0] = String.valueOf(topPos[0]);
+        if(topPos[1] == -1 ){
+            charArrayForTop[1] = "";
+        }
+        else{
+            charArrayForTop[1] = String.valueOf(topPos[1]);
+        }
+        if(topPos[9] == -1 ){
+            charArrayForTop[3] = "";
+        }
+        else{
+            charArrayForTop[3] = String.valueOf(topPos[9]);
+        }
+        if(topPos[10] == -1 ){
+            charArrayForTop[4] = "";
+        }
+        else{
+            charArrayForTop[4] = String.valueOf(topPos[10]);
+        }
+        if(topPos[11] == -1 ){
+            charArrayForTop[5] = "";
+        }
+        else{
+            charArrayForTop[5] = String.valueOf(topPos[11]);
+        }
+        if(topPos[11] == -1 ){
+            charArrayForTop[5] = "";
+        }
+        else{
+            charArrayForTop[6] = String.valueOf(topPos[12]);
+        }
     }
 }
