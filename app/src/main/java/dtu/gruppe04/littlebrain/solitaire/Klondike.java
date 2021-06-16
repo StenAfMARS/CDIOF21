@@ -7,8 +7,7 @@ import dtu.gruppe04.littlebrain.solitaire.card.Card;
 import dtu.gruppe04.littlebrain.solitaire.card.Suit;
 
 public class Klondike {
-    public Card[][] piles;
-    public int [] topPos;
+    public NodeList<Card>[] piles;
 
     /*
     0 facedown
@@ -18,19 +17,16 @@ public class Klondike {
      */
 
     public Klondike(){
-        piles = new Card[13][];
-
-        for (int i = 2; i < 13; i++) {
-            piles[i] = new Card[13];
-        }
-
-        piles[0] = new Card[56];
-        piles[1] = new Card[56];
-
-        topPos = new int[13];
+        piles = new NodeList[13];
 
         for (int i = 0; i < 13; i++) {
-            topPos[i] = -1;
+            piles[i] = new NodeList<>();
+        }
+
+        for (int i = 0; i < 7; i++) {
+            for (int j = 0; j <= i; j++) {
+                piles[i+2].append(new Card());
+            }
         }
     }
 
@@ -38,34 +34,13 @@ public class Klondike {
         int output = 0;
 
         for (int i = 9; i < 13; i++)
-            output += topPos[i] + 1;
+            output += piles[i].getCount();
 
-        for (int i = 2; i < 9; i++)
-            for (int j = 0; j < topPos[i]; j++)
-                if (piles[i][j].isHidden())
-                    output += j - 8;
-
-        return output;
-    }
-
-    public int calculateValue(Move move){
-        int output = 0;
-
-        for (int i = 9; i < 13; i++)
-            output += topPos[i] + 1;
-
-        for (int i = 2; i < 9; i++){
-
-            int adjustedSize = topPos[i];
-
-            if (move.From == i)
-                adjustedSize -= move.Amount + 1;
-
-            for (int j = 0; j < adjustedSize; j++) {
-
-                if (piles[i][j].isHidden())
-                    output += j - 8;
-            }
+        for (int i = 2; i < 9; i++) {
+            int j = 0;
+            for (Card card : piles[i])
+                if (card.isHidden())
+                    output += j++ - 8;
         }
 
         return output;
@@ -111,17 +86,17 @@ public class Klondike {
 
         // Cards in the deck can only be turned facedown into the faceup pile
         if (from == 0)
-            return to == 1 && amount == 1 && (topPos[0] >= 0 || topPos[1] >= 0);
+            return to == 1 && amount == 1 && (piles[0].getCount() > 0 || piles[1].getCount() > 0);
 
         // You can only move cards from 0 to 1, we have already covered that case - note that resting the deck is considered drawing
         if (to < 2)
             return false;
 
         // Ensure the from pile contains enough cards first
-        if (topPos[from] + 1 < amount)
+        if (piles[from].getCount() < amount)
             return false;
 
-        Card fromCard = piles[from][topPos[from] - amount];
+        Card fromCard = piles[from].peek(piles[0].getCount() - amount);
 
         if (fromCard.isHidden())
             return false;
@@ -135,8 +110,8 @@ public class Klondike {
 
         Card preCard = fromCard;
         // Ensure cards above the lowest moved card are in correct order -- Only runs when amount is above 1, which can only happen on stack to stack transfer
-        for (int i = topPos[from] + 2 - amount; i <= topPos[from]; i++) {
-            Card curCard = piles[from][i];
+        for (int i = piles[from].getCount() + 1 - amount; i < piles[from].getCount(); i++) {
+            Card curCard = piles[from].peek(i);
 
             if (preCard.getSuit().getColour() == curCard.getSuit().getColour() || preCard.getValue() + 1 != curCard.getValue())
                 return false;
@@ -145,7 +120,7 @@ public class Klondike {
         }
 
         // If moving to an empty pile -- Note that this always returns when landing on an empty pile
-        if (topPos[to] == -1){
+        if (piles[from].getCount() == 0){
             if (toIsStack)
                 // You need a king to move onto a new stack
                 return fromCard.getValue() == 13;
@@ -170,19 +145,19 @@ public class Klondike {
     }
 
     private int topColour(int pileID){
-        return piles[pileID][topPos[pileID]].getSuit().getColour();
+        return piles[pileID].peek(-1).getSuit().getColour();
     }
 
     private Suit topSuit(int pileID){
-        return piles[pileID][topPos[pileID]].getSuit();
+        return piles[pileID].peek(-1).getSuit();
     }
 
     private Card topCard(int pileID){
-        return piles[pileID][topPos[pileID]];
+        return piles[pileID].peek(-1);
     }
 
     private int topValue(int pileID){
-        return piles[pileID][topPos[pileID]].getValue();
+        return piles[pileID].peek(-1).getValue();
     }
 
     public class Move{

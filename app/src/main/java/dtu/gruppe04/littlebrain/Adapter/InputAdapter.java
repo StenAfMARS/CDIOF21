@@ -14,17 +14,17 @@ public class InputAdapter extends BaseAdapter {
 
     private final Context mContext;
     private final String[] characters;
-    private final boolean[] used;
+    private final boolean[] hidden;
 
     // 1
-    public InputAdapter(Context context, String[] characters) {
+    public InputAdapter(Context context, String[] text) {
         this.mContext = context;
-        this.characters = characters;
-        this.used = new boolean[characters.length];
+        this.characters = text;
+        this.hidden = new boolean[text.length];
     }
 
-    public void setUsed(int position, boolean isUsed){
-        used[position] = isUsed;
+    public void setHidden(int position, boolean isUsed){
+        hidden[position] = isUsed;
     }
 
     // 2
@@ -63,15 +63,12 @@ public class InputAdapter extends BaseAdapter {
         // 4
         button.setText(character);
 
-        if (used[position]) {
+        if (hidden[position]) {
             button.setVisibility(View.GONE);
         }
         else {
             button.setVisibility(View.VISIBLE);
         }
-
-        if (position == 0)
-            convertView.findViewById(R.id.addedHeight).setVisibility(View.VISIBLE);
 
         return convertView;
     }
