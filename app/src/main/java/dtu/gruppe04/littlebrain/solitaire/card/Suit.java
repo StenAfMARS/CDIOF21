@@ -3,7 +3,7 @@ package dtu.gruppe04.littlebrain.solitaire.card;
 import android.graphics.Color;
 
 public enum  Suit {
-    SPADES, HEARTS, DIAMONDS, CLUBS;
+    SPADES, DIAMONDS, CLUBS, HEARTS;
 
     Suit()
     {
