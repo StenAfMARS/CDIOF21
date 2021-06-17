@@ -53,4 +53,43 @@ public class Card implements Comparable<Card>
     public boolean colourEquals(Card card){
         return SUIT.getColour() == card.getSuit().getColour();
     }
+
+    public String toToon(){
+        StringBuilder sb = new StringBuilder();
+
+        switch (VALUE){
+            case 1:
+                sb.append('A');
+                break;
+            case 11:
+                sb.append('J');
+                break;
+            case 12:
+                sb.append('Q');
+                break;
+            case 13:
+                sb.append('K');
+                break;
+            default:
+                sb.append(VALUE);
+                break;
+        }
+
+        switch (SUIT){
+            case CLUBS:
+                sb.append("♣");
+                break;
+            case HEARTS:
+                sb.append("♥");
+                break;
+            case SPADES:
+                sb.append("♠");
+                break;
+            case DIAMONDS:
+                sb.append("♦");
+                break;
+        }
+
+        return sb.toString();
+    }
 }

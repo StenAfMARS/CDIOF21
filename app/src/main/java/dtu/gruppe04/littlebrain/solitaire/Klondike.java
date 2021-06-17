@@ -13,7 +13,7 @@ public class Klondike {
     0 facedown
     1 faceup
     2-8 descending
-    9 - 12 SPADES, HEARTS, DIAMONDS, CLUBS;
+    9 - 12 SPADES, DIAMONDS, CLUBS, HEARTS;
      */
 
     public Klondike(){
@@ -28,6 +28,15 @@ public class Klondike {
                 piles[i+2].append(new Card());
             }
         }
+    }
+
+    public boolean doMove(int from, int to, int amount){
+        if (!isLegalMove(from, to, amount))
+            return false;
+
+        piles[to].cut(piles[from].getCount()-amount,piles[from]);
+
+        return true;
     }
 
     public int calculateValue(){

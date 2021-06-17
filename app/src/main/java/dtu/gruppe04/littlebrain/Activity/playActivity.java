@@ -21,6 +21,9 @@ public class playActivity extends AppCompatActivity {
     String[] charArray;
     String[] charArrayForTop;
 
+    int from;
+    int amount;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +52,17 @@ public class playActivity extends AppCompatActivity {
         UpdateGridView(klondike.piles);
 
         gridViewMain.setOnItemClickListener((parent, view, position, id) -> {
-            String input = charArray[position];
+            if (from == -1) {
+                from = position % 7 + 2;
+                amount = klondike.piles[from].getCount() - (position / 7);
+            } else if (klondike.doMove(from, position % 7 + 2, amount)){
+
+            }
+        });
+
+        gridViewMain.setOnItemClickListener((parent, view, position, id) -> {
+            from = position % 7 + 2;
+            amount = klondike.piles[from].getCount() - (position / 7);
         });
     }
 
@@ -58,50 +71,40 @@ public class playActivity extends AppCompatActivity {
             for (int j = 0; j < 13; j++) {
                 inputMain.setHidden(i+j*7-2,true);
             }
-    private void UpdateGridView(Card[][] piles, int [] topPos){
-        // 0 1 9 10 11 12
 
             int j = 0;
 
             for (Card card : piles[i]) {
-                charArray[i+j*7-2] = card.getValue() +  card.getSuit().toString();
+                charArray[i+j*7-2] = card.toToon();
                 inputMain.setHidden(i+j++*7-2, false);
             }
         }
 
-        charArrayForTop = new String[]{"24", "", "", "♥", "♦", "♣", "♠"};
-        //                              0     1       9    10   11   12
-        charArrayForTop[0] = String.valueOf(topPos[0]);
-        if(topPos[1] == -1 ){
-            charArrayForTop[1] = "";
-        }
-        else{
-            charArrayForTop[1] = String.valueOf(topPos[1]);
-        }
-        if(topPos[9] == -1 ){
-            charArrayForTop[3] = "";
-        }
-        else{
-            charArrayForTop[3] = String.valueOf(topPos[9]);
-        }
-        if(topPos[10] == -1 ){
-            charArrayForTop[4] = "";
-        }
-        else{
-            charArrayForTop[4] = String.valueOf(topPos[10]);
-        }
-        if(topPos[11] == -1 ){
-            charArrayForTop[5] = "";
-        }
-        else{
-            charArrayForTop[5] = String.valueOf(topPos[11]);
-        }
-        if(topPos[11] == -1 ){
-            charArrayForTop[5] = "";
-        }
-        else{
-            charArrayForTop[6] = String.valueOf(topPos[12]);
-        }
+        charArrayForTop[0] = String.valueOf(piles[0].getCount());
 
+        if(piles[1].getCount() == 0)
+            charArrayForTop[1] = "";
+        else
+            charArrayForTop[1] = piles[1].peek(-1).toToon();
+
+        if(piles[9].getCount() == 0)
+            charArrayForTop[3] = "♠";
+        else
+            charArrayForTop[3] = piles[9].peek(-1).toToon();
+
+        if(piles[10].getCount() == 0)
+            charArrayForTop[4] = "♦";
+        else
+            charArrayForTop[4] = piles[10].peek(-1).toToon();
+
+        if(piles[11].getCount() == 0)
+            charArrayForTop[5] = "♣";
+        else
+            charArrayForTop[5] = piles[11].peek(-1).toToon();
+
+        if(piles[12].getCount() == 0)
+            charArrayForTop[6] = "♥";
+        else
+            charArrayForTop[6] = piles[12].peek(-1).toToon();
     }
 }
