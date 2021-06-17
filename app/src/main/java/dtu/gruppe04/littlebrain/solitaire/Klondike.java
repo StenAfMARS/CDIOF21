@@ -96,7 +96,7 @@ public class Klondike {
         if (from == to || amount < 1)
             return false;
 
-        // Cards in the deck can only be turned facedown into the faceup pile
+        // Cards in the deck can only be turned facedown into the faceup pileK
         if (from == 0)
             return to == 1 && amount == 1 && (piles[0].getCount() > 0 || piles[1].getCount() > 0);
 
@@ -113,7 +113,7 @@ public class Klondike {
         if (fromCard.isHidden())
             return false;
 
-        boolean fromIsStack = from > 2 && from < 9;
+        boolean fromIsStack = from > 1 && from < 9;
         boolean toIsStack = to < 9;
 
         // Ensure we only move multiple cards in stack piles
