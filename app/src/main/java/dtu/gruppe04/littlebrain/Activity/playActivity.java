@@ -60,12 +60,40 @@ public class playActivity extends AppCompatActivity {
             }
         });
 
-        gridViewMain.setOnItemClickListener((parent, view, position, id) -> {
-            from = position % 7 + 2;
-            amount = klondike.piles[from].getCount() - (position / 7);
+        gridViewTop.setOnItemClickListener((parent, view, position, id) -> {
+            //                              0     1       9    10   11   12
+            if (from == -1) {
+                from = convertPosition(position);
+                amount = 1;
+            } else if (klondike.doMove(from, convertPosition(position), amount)){
+
+            }
         });
     }
-
+    private int convertPosition(int position){
+        int convert = 0;
+        switch (position){
+            case 0:
+                convert = 0;
+                break;
+            case 1:
+                convert = 1;
+                break;
+            case 3:
+                convert = 9;
+                break;
+            case 4:
+                convert = 10;
+                break;
+            case 5:
+                convert = 11;
+                break;
+            case 6:
+                convert = 12;
+                break;
+        }
+        return convert;
+    }
     private void UpdateGridView(NodeList<Card>[] piles){
         for (int i = 2; i < 9; i++) {
             for (int j = 0; j < 13; j++) {

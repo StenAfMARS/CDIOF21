@@ -65,6 +65,7 @@ public class InputAdapter extends BaseAdapter {
 
         if (hidden[position]) {
             button.setVisibility(View.GONE);
+
         }
         else {
             button.setVisibility(View.VISIBLE);
