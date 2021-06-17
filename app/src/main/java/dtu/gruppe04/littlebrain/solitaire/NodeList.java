@@ -119,15 +119,21 @@ public class NodeList<T> implements Iterable<T> {
         }
 
         public Node<T> setPrev(Node<T> prev){
-            if (this.prev != null)
-
             this.prev = prev;
-            return prev.next = this;
+
+            if (prev != null)
+                prev.next = this;
+
+            return this;
         }
 
         public Node<T> setNext(Node<T> next){
             this.next = next;
-            return next.prev = this;
+
+            if (next != null)
+                next.prev = this;
+
+            return this;
         }
 
         public void swapPrev(Node<T> other){

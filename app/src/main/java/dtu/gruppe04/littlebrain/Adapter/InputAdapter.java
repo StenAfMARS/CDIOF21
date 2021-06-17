@@ -16,6 +16,12 @@ public class InputAdapter extends BaseAdapter {
     private final String[] characters;
     private final boolean[] hidden;
 
+    public int getSelected() {
+        return selected;
+    }
+
+    int selected = -1;
+
     // 1
     public InputAdapter(Context context, String[] text) {
         this.mContext = context;
@@ -25,6 +31,10 @@ public class InputAdapter extends BaseAdapter {
 
     public void setHidden(int position, boolean isUsed){
         hidden[position] = isUsed;
+    }
+
+    public void setSelected(int selected) {
+        this.selected = selected;
     }
 
     // 2
@@ -59,16 +69,23 @@ public class InputAdapter extends BaseAdapter {
 
         // 3
         final TextView button = convertView.findViewById(R.id.input_button);
+        final TextView button2 = convertView.findViewById(R.id.input_button2);
 
         // 4
         button.setText(character);
+        button2.setText(character);
 
         if (hidden[position]) {
             button.setVisibility(View.GONE);
-
+            button2.setVisibility(View.GONE);
+        }
+        else if (position == selected){
+            button.setVisibility(View.GONE);
+            button2.setVisibility(View.VISIBLE);
         }
         else {
             button.setVisibility(View.VISIBLE);
+            button2.setVisibility(View.GONE);
         }
 
         return convertView;

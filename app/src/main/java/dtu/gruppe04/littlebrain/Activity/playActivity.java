@@ -3,7 +3,10 @@ package dtu.gruppe04.littlebrain.Activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.widget.AdapterView;
 import android.widget.GridView;
+
+import java.io.Console;
 
 import dtu.gruppe04.littlebrain.Adapter.InputAdapter;
 import dtu.gruppe04.littlebrain.R;
@@ -38,6 +41,9 @@ public class playActivity extends AppCompatActivity {
         final GridView gridViewMain = findViewById(R.id.gridviewbutton);
         final GridView gridViewTop = findViewById(R.id.gridviewtop);
 
+        from = -1;
+        amount = -1;
+
         charArray = new String[13*7];
         charArrayForTop = new String[]{"24", "", "", "♥", "♦", "♣", "♠"};
 
@@ -55,8 +61,25 @@ public class playActivity extends AppCompatActivity {
             if (from == -1) {
                 from = position % 7 + 2;
                 amount = klondike.piles[from].getCount() - (position / 7);
-            } else if (klondike.doMove(from, position % 7 + 2, amount)){
 
+                inputMain.setSelected(position);
+                inputMain.notifyDataSetChanged();
+
+            } else if (klondike.doMove(from, position % 7 + 2, amount)){
+                from = -1;
+
+                UpdateGridView(klondike.piles);
+
+                inputMain.setSelected(-1);
+                inputMain.notifyDataSetChanged();
+                inputTop.setSelected(-1);
+                inputTop.notifyDataSetChanged();
+            } else if (inputMain.getSelected() == position){
+                from = -1;
+                amount = -1;
+
+                inputMain.setSelected(-1);
+                inputMain.notifyDataSetChanged();
             }
         });
 
@@ -65,8 +88,24 @@ public class playActivity extends AppCompatActivity {
             if (from == -1) {
                 from = convertPosition(position);
                 amount = 1;
-            } else if (klondike.doMove(from, convertPosition(position), amount)){
 
+                inputTop.setSelected(position);
+                inputTop.notifyDataSetChanged();
+            } else if (klondike.doMove(from, convertPosition(position), amount)){
+                from = -1;
+
+                UpdateGridView(klondike.piles);
+
+                inputMain.setSelected(-1);
+                inputMain.notifyDataSetChanged();
+                inputTop.setSelected(-1);
+                inputTop.notifyDataSetChanged();
+            }else if (inputTop.getSelected() == position){
+                from = -1;
+                amount = -1;
+
+                inputTop.setSelected(-1);
+                inputTop.notifyDataSetChanged();
             }
         });
     }

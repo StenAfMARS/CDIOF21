@@ -2,6 +2,7 @@ package dtu.gruppe04.littlebrain.solitaire;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 import dtu.gruppe04.littlebrain.solitaire.card.Card;
 import dtu.gruppe04.littlebrain.solitaire.card.Suit;
@@ -23,9 +24,11 @@ public class Klondike {
             piles[i] = new NodeList<>();
         }
 
+        Random random = new Random();
+
         for (int i = 0; i < 7; i++) {
             for (int j = 0; j <= i; j++) {
-                piles[i+2].append(new Card());
+                piles[i+2].append(new Card(Suit.values()[random.nextInt(4)], random.nextInt(13) + 1, false));
             }
         }
     }
@@ -105,7 +108,7 @@ public class Klondike {
         if (piles[from].getCount() < amount)
             return false;
 
-        Card fromCard = piles[from].peek(piles[0].getCount() - amount);
+        Card fromCard = piles[from].peek(piles[from].getCount() - amount);
 
         if (fromCard.isHidden())
             return false;
@@ -141,8 +144,12 @@ public class Klondike {
         // Now that we have ensured that the to pile is not empty, we can peek at it.
 
         // If to is a suit pile
-        if (!toIsStack)
+        if (!toIsStack){
+            if (piles[to].getCount() == 0)
+                return topSuit(from) == Suit.values()[to-9] && topValue(from) == 1;
+
             return topSuit(from) == topSuit(to) && topValue(from) + 1 == topValue(to);
+        }
 
         // If from is not a stack pile, note that the line above ensures that to is a stack pile
         if (!fromIsStack)
@@ -150,7 +157,7 @@ public class Klondike {
 
         // Both from and to are stack piles bellow this point.
         // Check for colour matching of the lowest moved card
-        return fromCard.getSuit().getColour() != topColour(to) && fromCard.getValue() == topValue(to) + 1;
+        return fromCard.getSuit().getColour() != topColour(to) && fromCard.getValue() == topValue(to) - 1;
     }
 
     private int topColour(int pileID){
