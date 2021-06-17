@@ -29,6 +29,9 @@ public class NodeList<T> implements Iterable<T> {
         other.head.swapPrev(moveHead);
         other.count -= moveCount;
 
+        if (other.count == 0)
+            other.head = null;
+
         if (count == 0)
             head = moveHead;
         else {

@@ -125,7 +125,7 @@ public class Klondike {
         for (int i = piles[from].getCount() + 1 - amount; i < piles[from].getCount(); i++) {
             Card curCard = piles[from].peek(i);
 
-            if (preCard.getSuit().getColour() == curCard.getSuit().getColour() || preCard.getValue() + 1 != curCard.getValue())
+            if (preCard.getSuit().getColour() == curCard.getSuit().getColour() || preCard.getValue() != curCard.getValue() + 1)
                 return false;
 
             preCard = curCard;
