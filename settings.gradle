@@ -1,2 +1,4 @@
 include ':app'
 rootProject.name = "Little Brain"
+include ':lib_interpreter'
+include ':lib_task_api'

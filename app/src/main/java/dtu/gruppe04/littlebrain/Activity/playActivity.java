@@ -2,16 +2,22 @@ package dtu.gruppe04.littlebrain.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.GridView;
 
 import dtu.gruppe04.littlebrain.Adapter.InputAdapter;
+import dtu.gruppe04.littlebrain.ObjectDetections.DetectorActivity;
 import dtu.gruppe04.littlebrain.R;
 import dtu.gruppe04.littlebrain.solitaire.Klondike;
 import dtu.gruppe04.littlebrain.solitaire.NodeList;
 import dtu.gruppe04.littlebrain.solitaire.card.Card;
 
 public class playActivity extends AppCompatActivity {
+
+    private Button openCamera;
 
     Klondike klondike;
 
@@ -27,8 +33,17 @@ public class playActivity extends AppCompatActivity {
         setContentView(R.layout.activity_play);
 
         klondike = new Klondike();
+        openCamera = findViewById(R.id.openCameraId);
 
         initGridView();
+
+        openCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(playActivity.this, DetectorActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void initGridView(){
