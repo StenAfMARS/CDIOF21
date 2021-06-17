@@ -1,12 +1,18 @@
 package dtu.gruppe04.littlebrain.Activity;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.Toast;
+
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import dtu.gruppe04.littlebrain.Adapter.InputAdapter;
 import dtu.gruppe04.littlebrain.ObjectDetections.DetectorActivity;
@@ -15,9 +21,10 @@ import dtu.gruppe04.littlebrain.solitaire.Klondike;
 import dtu.gruppe04.littlebrain.solitaire.NodeList;
 import dtu.gruppe04.littlebrain.solitaire.card.Card;
 
-public class playActivity extends AppCompatActivity {
+public class playActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Button openCamera;
+
+    private Button openCamera, ScanButton;
 
     Klondike klondike;
 
@@ -34,7 +41,7 @@ public class playActivity extends AppCompatActivity {
 
         klondike = new Klondike();
         openCamera = findViewById(R.id.openCameraId);
-
+        ScanButton = findViewById(R.id.ScanButtonId);
         initGridView();
 
         openCamera.setOnClickListener(new View.OnClickListener() {
@@ -44,6 +51,16 @@ public class playActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        ScanButton.setOnClickListener(this);
+    }
+
+    private void ScanCode() {
+        IntentIntegrator intentIntegrator = new IntentIntegrator(this);
+        intentIntegrator.setCaptureActivity(Capturece.class);
+        intentIntegrator.setOrientationLocked(false);
+        intentIntegrator.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
+        intentIntegrator.setPrompt("Scanning code");
+        intentIntegrator.initiateScan();
     }
 
     private void initGridView(){
@@ -83,5 +100,46 @@ public class playActivity extends AppCompatActivity {
         }
 
 
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode,  Intent data) {
+
+        IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
+        if (intentResult != null){
+
+            if (intentResult.getContents() != null){
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage(intentResult.getContents());
+                builder.setTitle("Scanning result");
+                builder.setPositiveButton("Scan agin", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        ScanCode();
+                    }
+                }).setNegativeButton("finish", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
+            } else {
+                Toast.makeText(this,"No Results",Toast.LENGTH_LONG).show();
+            }
+
+
+
+        }else {
+            super.onActivityResult(requestCode, resultCode, data);
+
+        }
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        ScanCode();
     }
 }

@@ -54,9 +54,21 @@
         android:id="@+id/openCameraId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
+        android:text="Detect"
         app:layout_constraintBottom_toTopOf="@+id/gridviewtop"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.808"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/ScanButtonId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="QR"
+        app:layout_constraintBottom_toTopOf="@+id/gridviewtop"
+        app:layout_constraintEnd_toStartOf="@+id/openCameraId"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
