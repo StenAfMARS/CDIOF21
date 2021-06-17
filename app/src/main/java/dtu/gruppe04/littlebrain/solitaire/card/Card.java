@@ -10,7 +10,7 @@ public class Card implements Comparable<Card>
         this(Suit.SPADES, 1, false);
     }
 
-    public Card(Suit suit, int value ,boolean hidden){
+    public Card(Suit suit, int value, boolean hidden){
 
         if(value < 1 || value > 13){
             throw new IllegalArgumentException("Value out of range.");
