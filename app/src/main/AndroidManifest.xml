@@ -9,6 +9,7 @@
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -26,6 +27,16 @@
             </intent-filter>
         </activity>
         <activity android:name=".ObjectDetections.DetectorActivity"></activity>
+
+        <activity android:name=".Activity.Capturece"
+            android:screenOrientation="fullSensor"
+            android:stateNotNeeded="true"
+            android:windowSoftInputMode="stateAlwaysHidden">
+
+        </activity>
+
+
+
     </application>
 
 </manifest>

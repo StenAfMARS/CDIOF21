@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.Toast;
 
+
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -21,7 +22,7 @@ import dtu.gruppe04.littlebrain.solitaire.Klondike;
 import dtu.gruppe04.littlebrain.solitaire.NodeList;
 import dtu.gruppe04.littlebrain.solitaire.card.Card;
 
-public class playActivity extends AppCompatActivity implements View.OnClickListener {
+public class playActivity extends AppCompatActivity {
 
 
     private Button openCamera, ScanButton;
@@ -51,17 +52,16 @@ public class playActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent);
             }
         });
-        ScanButton.setOnClickListener(this);
+
+        ScanButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ScanCode();
+            }
+        });
     }
 
-    private void ScanCode() {
-        IntentIntegrator intentIntegrator = new IntentIntegrator(this);
-        intentIntegrator.setCaptureActivity(Capturece.class);
-        intentIntegrator.setOrientationLocked(false);
-        intentIntegrator.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
-        intentIntegrator.setPrompt("Scanning code");
-        intentIntegrator.initiateScan();
-    }
+
 
     private void initGridView(){
         final GridView gridViewMain = findViewById(R.id.gridviewbutton);
@@ -101,6 +101,16 @@ public class playActivity extends AppCompatActivity implements View.OnClickListe
 
 
     }
+
+    private void ScanCode() {
+        IntentIntegrator intentIntegrator = new IntentIntegrator(this);
+        intentIntegrator.setCaptureActivity(Capturece.class);
+        intentIntegrator.setOrientationLocked(false);
+        intentIntegrator.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
+        intentIntegrator.setPrompt("Scanning code");
+        intentIntegrator.initiateScan();
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode,  Intent data) {
 
@@ -138,8 +148,5 @@ public class playActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    @Override
-    public void onClick(View v) {
-        ScanCode();
-    }
+
 }
