@@ -40,7 +40,10 @@ public class Klondike {
     public boolean doMove(int from, int to, int amount){
         if (!isLegalMove(from, to, amount))
             return false;
-
+        if(to == 0){
+            amount = piles[1].getCount();
+            piles[from].reverseNode();
+        }
         topCard(from).setHidden(false);
         piles[to].cut(piles[from].getCount()-amount,piles[from]);
 
@@ -103,7 +106,10 @@ public class Klondike {
 
         // Cards in the deck can only be turned facedown into the faceup pileK
         if (from == 0)
-            return to == 1 && amount == 1 && (piles[0].getCount() > 0 || piles[1].getCount() > 0);
+            return to == 1 && amount == 1 && piles[0].getCount() > 0;
+
+        if (from == 1 && to == 0 && piles[0].getCount() == 0)
+            return piles[1].getCount() > 0;
 
         // You can only move cards from 0 to 1, we have already covered that case - note that resting the deck is considered drawing
         if (to < 2)
@@ -157,9 +163,11 @@ public class Klondike {
         }
 
         // If from is not a stack pile, note that the line above ensures that to is a stack pile
-        if (!fromIsStack)
+        /*if (!fromIsStack)
             return topColour(from) != topColour(to) && topValue(from) == topValue(to) + 1;
 
+
+         */
         if (piles[to].getCount() == 0)
             return fromCard.getValue() == 13;
 

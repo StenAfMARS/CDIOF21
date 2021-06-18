@@ -40,7 +40,22 @@ public class NodeList<T> implements Iterable<T> {
 
         count += moveCount;
     }
+    public void reverseNode() {
+        if (count != 0) {
 
+            Node<T> cur = head;
+            Node<T> temp;
+            do {
+                temp = cur.prev;
+                cur.prev = cur.next;
+                cur.next = temp;
+
+                cur = cur.next;
+            } while (cur != head);
+            head = head.next;
+        }
+
+    }
     public T peek(int index){
         return getNode(index).value;
     }
