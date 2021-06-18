@@ -2,15 +2,22 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="dtu.gruppe04.littlebrain">
 
+    <uses-sdk />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.LittleBrain">
-        android:theme="@style/Theme.LittleBrain" >
-        <activity android:name=".Activity.ShowBoard"></activity>
-        <activity android:name=".Activity.playActivity"></activity>
+        <activity android:name=".Activity.ShowBoard" />
+        <activity android:name=".Activity.playActivity" />
         <activity android:name=".Activity.RulesActivity" />
         <activity android:name=".Activity.MainActivity">
             <intent-filter>
@@ -19,6 +26,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ObjectDetections.DetectorActivity"></activity>
+
+        <activity android:name=".Activity.Capturece"
+            android:screenOrientation="fullSensor"
+            android:stateNotNeeded="true"
+            android:windowSoftInputMode="stateAlwaysHidden">
+
+        </activity>
+
+
+
     </application>
 
 </manifest>
