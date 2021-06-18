@@ -34,6 +34,7 @@ public class playActivity extends AppCompatActivity {
 
     String[] charArray;
     String[] charArrayForTop;
+    String result;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +60,8 @@ public class playActivity extends AppCompatActivity {
                 ScanCode();
             }
         });
+        result = getIntent().getStringExtra("OutputOfCard");
+        Toast.makeText(getApplicationContext(),result,Toast.LENGTH_LONG).show();
     }
 
 

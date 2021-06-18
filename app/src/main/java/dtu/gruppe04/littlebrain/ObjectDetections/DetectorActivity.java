@@ -16,6 +16,7 @@
 
 package dtu.gruppe04.littlebrain.ObjectDetections;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
@@ -39,6 +40,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import dtu.gruppe04.littlebrain.Activity.playActivity;
 import dtu.gruppe04.littlebrain.ObjectDetections.customview.OverlayView;
 import dtu.gruppe04.littlebrain.ObjectDetections.env.BorderedText;
 import dtu.gruppe04.littlebrain.ObjectDetections.env.ImageUtils;
@@ -211,6 +213,10 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
 
                 result.setLocation(location);
                 mappedRecognitions.add(result);
+                LOGGER.i("Result " + result.getTitle());
+                Intent intent = new Intent (DetectorActivity.this, playActivity.class);
+                intent.putExtra("OutputOfCard", result.getTitle());
+                startActivity(intent);
               }
             }
 
