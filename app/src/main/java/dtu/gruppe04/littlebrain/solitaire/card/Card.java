@@ -1,9 +1,11 @@
 package dtu.gruppe04.littlebrain.solitaire.card;
 
+import android.renderscript.Sampler;
+
 public class Card implements Comparable<Card>
 {
-    private final Suit SUIT;
-    private final int VALUE;
+    private Suit SUIT;
+    private int VALUE;
     private boolean hidden;
 
     public Card() {
@@ -26,11 +28,9 @@ public class Card implements Comparable<Card>
         return VALUE;
     }
 
-    public Suit getSuit()
-    {
-        return SUIT;
-    }
-
+    public Suit getSuit() { return SUIT; }
+    public void setSuit(Suit suit){ this.SUIT = suit; }
+    public void setVALUE(int value){ this.VALUE = value; }
     public void flip()
     {
         hidden = !hidden;

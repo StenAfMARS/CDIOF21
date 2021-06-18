@@ -27,6 +27,11 @@ import dtu.gruppe04.littlebrain.solitaire.Klondike;
 import dtu.gruppe04.littlebrain.solitaire.NodeList;
 import dtu.gruppe04.littlebrain.solitaire.card.Card;
 
+import static dtu.gruppe04.littlebrain.solitaire.card.Suit.CLUBS;
+import static dtu.gruppe04.littlebrain.solitaire.card.Suit.DIAMONDS;
+import static dtu.gruppe04.littlebrain.solitaire.card.Suit.HEARTS;
+import static dtu.gruppe04.littlebrain.solitaire.card.Suit.SPADES;
+
 public class playActivity extends AppCompatActivity {
 
 
@@ -73,6 +78,62 @@ public class playActivity extends AppCompatActivity {
     }
 
     private Card cardFromDetection(String string){
+        Card card = new Card();
+        String convertedFormat;
+        // special card
+        switch(string.charAt(string.length()-1)){
+            case'H':
+                card.setSuit(HEARTS);
+                break;
+            case'D':
+                card.setSuit(DIAMONDS);
+                break;
+            case'C':
+                card.setSuit(CLUBS);
+                break;
+            case'S':
+                card.setSuit(SPADES);
+                break;
+        }
+        if(string.contains("A")){
+            card.setVALUE(1);
+        }
+        if(string.contains("2")){
+            card.setVALUE(2);
+        }
+        if(string.contains("3")){
+            card.setVALUE(3);
+        }
+        if(string.contains("4")){
+            card.setVALUE(4);
+        }
+        if(string.contains("5")){
+            card.setVALUE(5);
+        }
+        if(string.contains("6")){
+            card.setVALUE(6);
+        }
+        if(string.contains("7")){
+            card.setVALUE(7);
+        }
+        if(string.contains("8")){
+            card.setVALUE(8);
+        }
+        if(string.contains("9")){
+            card.setVALUE(9);
+        }
+        if(string.contains("10")){
+            card.setVALUE(10);
+        }
+        if(string.contains("J")){
+            card.setVALUE(11);
+        }
+        if(string.contains("Q")){
+            card.setVALUE(12);
+        }
+        if(string.contains("K")){
+            card.setVALUE(13);
+        }
 
         /*
         Ace - A
