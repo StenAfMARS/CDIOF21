@@ -70,23 +70,25 @@ public class InputAdapter extends BaseAdapter {
         // 3
         final TextView button = convertView.findViewById(R.id.input_button);
         final TextView button2 = convertView.findViewById(R.id.input_button2);
+        final TextView button3 = convertView.findViewById(R.id.input_button3);
 
         // 4
         button.setText(character);
         button2.setText(character);
 
+
+        button.setVisibility(View.GONE);
+        button2.setVisibility(View.GONE);
+        button3.setVisibility(View.GONE);
+
         if (hidden[position]) {
-            button.setVisibility(View.GONE);
-            button2.setVisibility(View.GONE);
+            if (position < 7 && characters[position] != null)
+                button3.setVisibility(View.VISIBLE);
         }
-        else if (position == selected){
-            button.setVisibility(View.GONE);
+        else if (position == selected)
             button2.setVisibility(View.VISIBLE);
-        }
-        else {
+        else
             button.setVisibility(View.VISIBLE);
-            button2.setVisibility(View.GONE);
-        }
 
         return convertView;
     }

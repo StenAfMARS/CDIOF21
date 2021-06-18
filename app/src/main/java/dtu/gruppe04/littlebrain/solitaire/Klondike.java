@@ -31,12 +31,17 @@ public class Klondike {
                 piles[i+2].append(new Card(Suit.values()[random.nextInt(4)], random.nextInt(13) + 1, false));
             }
         }
+
+        for (int i = 0; i < 24; i++) {
+            piles[0].append(new Card(Suit.values()[random.nextInt(4)], random.nextInt(13) + 1, true));
+        }
     }
 
     public boolean doMove(int from, int to, int amount){
         if (!isLegalMove(from, to, amount))
             return false;
 
+        topCard(from).setHidden(false);
         piles[to].cut(piles[from].getCount()-amount,piles[from]);
 
         return true;
@@ -148,12 +153,15 @@ public class Klondike {
             if (piles[to].getCount() == 0)
                 return topSuit(from) == Suit.values()[to-9] && topValue(from) == 1;
 
-            return topSuit(from) == topSuit(to) && topValue(from) + 1 == topValue(to);
+            return topSuit(from) == topSuit(to) && topValue(from) == topValue(to) + 1;
         }
 
         // If from is not a stack pile, note that the line above ensures that to is a stack pile
         if (!fromIsStack)
             return topColour(from) != topColour(to) && topValue(from) == topValue(to) + 1;
+
+        if (piles[to].getCount() == 0)
+            return fromCard.getValue() == 13;
 
         // Both from and to are stack piles bellow this point.
         // Check for colour matching of the lowest moved card

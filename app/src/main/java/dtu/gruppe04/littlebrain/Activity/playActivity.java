@@ -45,7 +45,7 @@ public class playActivity extends AppCompatActivity {
         amount = -1;
 
         charArray = new String[13*7];
-        charArrayForTop = new String[]{"24", "", "", "♥", "♦", "♣", "♠"};
+        charArrayForTop = new String[]{"24", "", null, "♥", "♦", "♣", "♠"};
 
         inputMain = new InputAdapter(this, charArray);
         inputTop = new InputAdapter(this, charArrayForTop);
