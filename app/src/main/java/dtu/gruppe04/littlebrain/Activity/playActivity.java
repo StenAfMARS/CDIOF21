@@ -16,6 +16,8 @@ import android.widget.Toast;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import org.checkerframework.checker.units.qual.A;
+
 import java.io.Console;
 
 import dtu.gruppe04.littlebrain.Adapter.InputAdapter;
@@ -67,10 +69,29 @@ public class playActivity extends AppCompatActivity {
             }
         });
         result = getIntent().getStringExtra("OutputOfCard");
-        Toast.makeText(getApplicationContext(),result,Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(),result,Toast.LENGTH_LONG).show();
     }
 
+    private Card cardFromDetection(String string){
 
+        /*
+        Ace - A
+        Jack - J
+        Queen - Q
+        King - K
+        2 til 10 er 2 til 10
+
+        Hearts er H
+        Diamonds er D
+        Clubs er C
+        Spades er S
+
+        Queen of spades er QS
+        2 of Hearts er 2H
+         */
+
+        return new Card();
+    }
 
     private void initGridView(){
         final GridView gridViewMain = findViewById(R.id.gridviewbutton);
