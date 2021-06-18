@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.application'
+    id 'de.undercouch.download'
 }
 
 android {
@@ -8,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "dtu.gruppe04.littlebrain"
-        minSdkVersion 26
+        minSdkVersion 24
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -29,6 +30,38 @@ android {
     aaptOptions{
         noCompress "tflite";
     }
+
+    lintOptions {
+        abortOnError false
+    }
+
+    flavorDimensions "tfliteInference"
+    productFlavors {
+        // The TFLite inference is built using the TFLite Java interpreter.
+        interpreter {
+            dimension "tfliteInference"
+        }
+        // Default: The TFLite inference is built using the TFLite Task library (high-level API).
+        taskApi {
+            getIsDefault().set(true)
+            dimension "tfliteInference"
+        }
+    }
+
+    // import DownloadModels task
+    project.ext.ASSET_DIR = projectDir.toString() + '/src/main/assets'
+    project.ext.TMP_DIR   = project.buildDir.toString() + '/downloads'
+
+// Download default models; if you wish to use your own models then
+// place them in the "assets" directory and comment out this line.
+    task downloadModelFile(type: Download) {
+        src 'https://tfhub.dev/tensorflow/lite-model/ssd_mobilenet_v1/1/metadata/2?lite-format=tflite'
+        dest project.ext.ASSET_DIR + '/detect.tflite'
+        overwrite false
+    }
+
+    preBuild.dependsOn downloadModelFile
+
 }
 
 dependencies {
@@ -42,6 +75,11 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-
+    implementation 'com.journeyapps:zxing-android-embedded:3.4.0'
     implementation 'org.tensorflow:tensorflow-lite-task-vision:0.2.0'
+
+    implementation fileTree(dir: 'libs', include: ['*.jar','*.aar'])
+    interpreterImplementation project(":lib_interpreter")
+    taskApiImplementation project(":lib_task_api")
+    androidTestImplementation 'com.google.truth:truth:1.0.1'
 }
