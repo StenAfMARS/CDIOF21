@@ -116,11 +116,11 @@ public class playActivity extends AppCompatActivity {
             inputTop.setSuggested(-1);
         }
 
-        if (bestMove.To < 2) {
+        if (bestMove.From < 2) {
             inputMain.setSelected(-1);
             inputTop.setSelected(bestMove.From);
         }
-        else if (bestMove.To > 8){
+        else if (bestMove.From > 8){
             inputMain.setSelected(-1);
             inputTop.setSelected(bestMove.From-6);
         }
