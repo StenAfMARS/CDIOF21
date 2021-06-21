@@ -82,25 +82,42 @@ public class playActivity extends AppCompatActivity {
         });
     }
 
-    private void SuggestMove(){
+    public void SuggestMove(View v){
         Klondike.Move[] moves = klondike.possibleMoves();
 
-        int bestScore = 0;
-        Klondike.Move bestMove;
+        if (moves.length == 0)
+            return;
+
+        int bestScore = Integer.MAX_VALUE;
+        Klondike.Move bestMove = moves[0];
 
         for (Klondike.Move move : moves){
             int score = klondike.calculateValue(move);
 
-            if (score > bestScore) {
+            if (score < bestScore) {
                 bestMove = move;
                 bestScore = score;
             }
         }
 
-        //from = bestMove.From;
-        //amount = bestMove.Amount;
+        from = bestMove.From;
+        amount = bestMove.Amount;
 
+        if (bestMove.To < 2) {
+            inputMain.setHighlighted(-1);
+            inputTop.setHighlighted(bestMove.To);
+        }
+        else if (bestMove.To > 8){
+            inputMain.setHighlighted(-1);
+            inputTop.setHighlighted(bestMove.To-6);
+        }
+        else {
+            inputMain.setHighlighted(bestMove.To+klondike.piles[bestMove.To].getCount()*7-2);
+            inputTop.setHighlighted(-1);
+        }
 
+        inputMain.notifyDataSetChanged();
+        inputTop.notifyDataSetChanged();
     }
 
     private void cardFromDetection(String string, Card card){
