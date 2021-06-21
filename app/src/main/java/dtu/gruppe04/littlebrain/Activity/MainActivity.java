@@ -8,6 +8,7 @@ import android.content.res.AssetFileDescriptor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -30,7 +31,11 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-
+        boolean sessionId = getIntent().getBooleanExtra("winCondition",false);
+        TextView txt_Header = (TextView) findViewById(R.id.TXT_Header);
+        if(sessionId == true){
+            txt_Header.setText("You Won");
+        }
 
         Button BTN_Play =(Button) findViewById(R.id.BTN_Play);
         BTN_Play.setOnClickListener(this);

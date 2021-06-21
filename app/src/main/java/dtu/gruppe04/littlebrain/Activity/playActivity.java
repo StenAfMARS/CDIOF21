@@ -337,6 +337,11 @@ public class playActivity extends AppCompatActivity {
         }
 
     }
+    private void gameOver(boolean winCondition){
+        Intent intent = new Intent(getBaseContext(),  MainActivity.class);
+        intent.putExtra("winCondition", winCondition);
+        startActivity(intent);
+    }
 
 
 }
