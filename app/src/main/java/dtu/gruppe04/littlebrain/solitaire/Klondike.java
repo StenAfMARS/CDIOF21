@@ -1,5 +1,7 @@
 package dtu.gruppe04.littlebrain.solitaire;
 
+import org.tensorflow.lite.Interpreter;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -42,7 +44,7 @@ public class Klondike {
             amount = piles[1].getCount();
             piles[from].reverseNode();
         }
-        topCard(from).setHidden(false);
+
         piles[to].cut(piles[from].getCount()-amount,piles[from]);
 
         if (piles[from].getCount() > 0)
@@ -60,11 +62,24 @@ public class Klondike {
         for (int i = 2; i < 9; i++) {
             int j = 0;
             for (Card card : piles[i])
-                if (card.isHidden())
-                    output += j++ - 8;
+                if (card.isHidden() && j != piles[i].getCount() - 1)
+                    output += j++;
         }
 
         return output;
+    }
+
+    public int calculateValue(Move move){
+        if (!isLegalMove(move.From, move.To, move.Amount))
+            return Integer.MAX_VALUE;
+
+        piles[move.To].cut(piles[move.From].getCount()-move.Amount,piles[move.From]);
+
+        int val = calculateValue();
+
+        piles[move.From].cut(piles[move.To].getCount()-move.Amount,piles[move.To]);
+
+        return val;
     }
 
     public Move[] possibleMoves(){

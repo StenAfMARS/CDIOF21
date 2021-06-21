@@ -82,6 +82,27 @@ public class playActivity extends AppCompatActivity {
         });
     }
 
+    private void SuggestMove(){
+        Klondike.Move[] moves = klondike.possibleMoves();
+
+        int bestScore = 0;
+        Klondike.Move bestMove;
+
+        for (Klondike.Move move : moves){
+            int score = klondike.calculateValue(move);
+
+            if (score > bestScore) {
+                bestMove = move;
+                bestScore = score;
+            }
+        }
+
+        //from = bestMove.From;
+        //amount = bestMove.Amount;
+
+
+    }
+
     private void cardFromDetection(String string, Card card){
         // special card
         switch(string.charAt(string.length()-1)){
