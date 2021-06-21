@@ -71,6 +71,7 @@ public class playActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(playActivity.this, DetectorActivity.class);
                 startActivity(intent);
+
             }
         });
 
@@ -78,6 +79,7 @@ public class playActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ScanCode();
+
             }
         });
     }
@@ -471,6 +473,8 @@ public class playActivity extends AppCompatActivity {
         intent.putExtra("winCondition", winCondition);
         startActivity(intent);
     }
+
+
 
 
 }
