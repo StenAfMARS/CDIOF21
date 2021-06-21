@@ -10,8 +10,12 @@
     <corners android:radius="3dp" />
 
     <!-- This is the border color -->
-    <stroke android:width="3dp" android:color="#335" />
+    <stroke android:width="4dp" android:color="#464" />
 
     <!--- This is the background color -->
-    <solid android:color="#bbc" />
+    <!--<gradient android:centerColor="#ede" />
+    <gradient android:endColor="#bdb" />
+    <gradient android:startColor="#dbe" />
+    <gradient android:angle="270" /> -->
+    <solid android:color="#4CAF50" />
 </shape>

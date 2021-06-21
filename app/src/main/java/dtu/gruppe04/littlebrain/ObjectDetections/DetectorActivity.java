@@ -217,6 +217,9 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                 Intent intent = new Intent (DetectorActivity.this, playActivity.class);
                 intent.putExtra("OutputOfCard", result.getTitle());
                 startActivity(intent);
+
+
+
               }
             }
 

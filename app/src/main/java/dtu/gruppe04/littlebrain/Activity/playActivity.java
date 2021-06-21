@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.AdapterView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
@@ -15,10 +14,6 @@ import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-
-import org.checkerframework.checker.units.qual.A;
-
-import java.io.Console;
 
 import dtu.gruppe04.littlebrain.Adapter.InputAdapter;
 import dtu.gruppe04.littlebrain.ObjectDetections.DetectorActivity;
@@ -37,26 +32,38 @@ public class playActivity extends AppCompatActivity {
 
     private Button openCamera, ScanButton;
 
-    Klondike klondike;
+    static Klondike klondike;
 
     InputAdapter inputMain;
     InputAdapter inputTop;
 
     String[] charArray;
     String[] charArrayForTop;
-    String result;
 
-    int from;
-    int amount;
+    int from = -1;
+    int amount = -1;
+
+    static Card scanCard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
 
-        klondike = new Klondike();
+        if (klondike == null)
+            klondike = new Klondike();
+
         openCamera = findViewById(R.id.openCameraId);
         ScanButton = findViewById(R.id.ScanButtonId);
+
+
+        String result = getIntent().getStringExtra("OutputOfCard");
+        //Toast.makeText(getApplicationContext(),result,Toast.LENGTH_LONG).show();
+
+        if (result != null){
+            cardFromDetection(result, scanCard);
+        }
+
         initGridView();
 
         openCamera.setOnClickListener(new View.OnClickListener() {
@@ -73,13 +80,9 @@ public class playActivity extends AppCompatActivity {
                 ScanCode();
             }
         });
-        result = getIntent().getStringExtra("OutputOfCard");
-        //Toast.makeText(getApplicationContext(),result,Toast.LENGTH_LONG).show();
     }
 
-    private Card cardFromDetection(String string){
-        Card card = new Card();
-        String convertedFormat;
+    private void cardFromDetection(String string, Card card){
         // special card
         switch(string.charAt(string.length()-1)){
             case'H':
@@ -95,6 +98,7 @@ public class playActivity extends AppCompatActivity {
                 card.setSuit(SPADES);
                 break;
         }
+
         if(string.contains("A")){
             card.setVALUE(1);
         }
@@ -135,6 +139,8 @@ public class playActivity extends AppCompatActivity {
             card.setVALUE(13);
         }
 
+        card.setUnknown(false);
+
         /*
         Ace - A
         Jack - J
@@ -150,18 +156,13 @@ public class playActivity extends AppCompatActivity {
         Queen of spades er QS
         2 of Hearts er 2H
          */
-
-        return new Card();
     }
 
     private void initGridView(){
         final GridView gridViewMain = findViewById(R.id.gridviewbutton);
         final GridView gridViewTop = findViewById(R.id.gridviewtop);
 
-        from = -1;
-        amount = -1;
-
-        charArray = new String[13*7];
+        charArray = new String[20*7];
         charArrayForTop = new String[]{"24", "", null, "♥", "♦", "♣", "♠"};
 
         inputMain = new InputAdapter(this, charArray);
@@ -170,12 +171,15 @@ public class playActivity extends AppCompatActivity {
         gridViewMain.setAdapter(inputMain);
         gridViewTop.setAdapter(inputTop);
         
-        inputTop.setHidden(2, true);
+        inputTop.setPile(2, true);
 
         UpdateGridView(klondike.piles);
 
         gridViewMain.setOnItemClickListener((parent, view, position, id) -> {
-            if (from == -1) {
+            if (klondike.piles[position % 7 + 2].getCount() == 0 && from == -1){
+
+            }
+            else if (from == -1) {
                 from = position % 7 + 2;
                 amount = klondike.piles[from].getCount() - (position / 7);
 
@@ -202,7 +206,10 @@ public class playActivity extends AppCompatActivity {
 
         gridViewTop.setOnItemClickListener((parent, view, position, id) -> {
             //                              0     1       9    10   11   12
-            if (from == -1) {
+            if (klondike.piles[convertPosition(position)].getCount() == 0 && from == -1){
+
+            }
+            else if (from == -1) {
                 from = convertPosition(position);
                 amount = 1;
 
@@ -252,44 +259,92 @@ public class playActivity extends AppCompatActivity {
     }
     private void UpdateGridView(NodeList<Card>[] piles){
         for (int i = 2; i < 9; i++) {
-            for (int j = 0; j < 13; j++) {
-                inputMain.setHidden(i+j*7-2,true);
-            }
-
             int j = 0;
 
             for (Card card : piles[i]) {
-                charArray[i+j*7-2] = card.toToon();
-                inputMain.setHidden(i+j++*7-2, false);
+                if (j == 0)
+                    inputMain.setPile(i-2, false);
+
+                if (card.isHidden())
+                    charArray[i+j*7-2] = "";
+                else if (card.isUnknown()) {
+                    charArray[i+j*7-2] = "";
+                    inputMain.setHighlighted(i+j*7-2);
+                    inputTop.setHighlighted(-1);
+                    scanCard = card;
+                }
+                else
+                    charArray[i+j*7-2] = card.toToon();
+
+                j++;
+            }
+
+            if (j == 0){
+                inputMain.setPile(i-2, true);
+                charArray[i-2] = "";
+                j++;
+            }
+
+            for (; j < 20; j++) {
+                charArray[i+j*7-2] = null;
             }
         }
 
         charArrayForTop[0] = String.valueOf(piles[0].getCount());
 
-        if(piles[1].getCount() == 0)
+        if (piles[0].getCount() == 0)
+            inputTop.setPile(0, true);
+        else
+            inputTop.setPile(0, false);
+
+        if(piles[1].getCount() == 0) {
             charArrayForTop[1] = "";
-        else
-            charArrayForTop[1] = piles[1].peek(-1).toToon();
+            inputTop.setPile(1, true);
+        } else {
 
-        if(piles[9].getCount() == 0)
+            inputTop.setPile(1, false);
+
+            if (piles[1].peek(-1).isUnknown()) {
+                charArrayForTop[1] = "";
+                inputMain.setHighlighted(-1);
+                inputTop.setHighlighted(1);
+                scanCard = piles[1].peek(-1);
+            }
+            else
+                charArrayForTop[1] = piles[1].peek(-1).toToon();
+        }
+
+        if(piles[9].getCount() == 0) {
             charArrayForTop[3] = "♠";
-        else
+            inputTop.setPile(3, true);
+        } else {
             charArrayForTop[3] = piles[9].peek(-1).toToon();
+            inputTop.setPile(3, false);
+        }
 
-        if(piles[10].getCount() == 0)
+        if(piles[10].getCount() == 0) {
             charArrayForTop[4] = "♦";
-        else
+            inputTop.setPile(4, true);
+        } else {
             charArrayForTop[4] = piles[10].peek(-1).toToon();
+            inputTop.setPile(4, false);
+        }
 
-        if(piles[11].getCount() == 0)
+        if(piles[11].getCount() == 0) {
             charArrayForTop[5] = "♣";
-        else
+            inputTop.setPile(5, true);
+        } else {
             charArrayForTop[5] = piles[11].peek(-1).toToon();
+            inputTop.setPile(5, false);
+        }
 
-        if(piles[12].getCount() == 0)
+        if(piles[12].getCount() == 0) {
             charArrayForTop[6] = "♥";
-        else
+            inputTop.setPile(6, true);
+        } else {
             charArrayForTop[6] = piles[12].peek(-1).toToon();
+            inputTop.setPile(6, false);
+        }
     }
 
     private void ScanCode() {
@@ -306,12 +361,13 @@ public class playActivity extends AppCompatActivity {
 
         IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
         if (intentResult != null){
-
+            Toast.makeText(this,intentResult.getContents(),Toast.LENGTH_LONG).show();
+ /*
             if (intentResult.getContents() != null){
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setMessage(intentResult.getContents());
                 builder.setTitle("Scanning result");
-                builder.setPositiveButton("Scan agin", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton("Scan again", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         ScanCode();
@@ -328,6 +384,8 @@ public class playActivity extends AppCompatActivity {
             } else {
                 Toast.makeText(this,"No Results",Toast.LENGTH_LONG).show();
             }
+
+  */
 
 
 

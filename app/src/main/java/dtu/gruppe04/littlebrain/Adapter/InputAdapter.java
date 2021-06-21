@@ -1,11 +1,15 @@
 package dtu.gruppe04.littlebrain.Adapter;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import androidx.core.content.res.ResourcesCompat;
 
 import dtu.gruppe04.littlebrain.R;
 
@@ -14,23 +18,32 @@ public class InputAdapter extends BaseAdapter {
 
     private final Context mContext;
     private final String[] characters;
-    private final boolean[] hidden;
+    private final boolean[] pile;
 
     public int getSelected() {
         return selected;
     }
 
     int selected = -1;
+    int highlighted = -1;
+
+    public int getHighlighted() {
+        return highlighted;
+    }
+
+    public void setHighlighted(int highlighted) {
+        this.highlighted = highlighted;
+    }
 
     // 1
     public InputAdapter(Context context, String[] text) {
         this.mContext = context;
         this.characters = text;
-        this.hidden = new boolean[text.length];
+        this.pile = new boolean[text.length];
     }
 
-    public void setHidden(int position, boolean isUsed){
-        hidden[position] = isUsed;
+    public void setPile(int position, boolean isUsed){
+        pile[position] = isUsed;
     }
 
     public void setSelected(int selected) {
@@ -69,26 +82,27 @@ public class InputAdapter extends BaseAdapter {
 
         // 3
         final TextView button = convertView.findViewById(R.id.input_button);
-        final TextView button2 = convertView.findViewById(R.id.input_button2);
-        final TextView button3 = convertView.findViewById(R.id.input_button3);
 
         // 4
         button.setText(character);
-        button2.setText(character);
 
+        Resources res = mContext.getResources();
 
-        button.setVisibility(View.GONE);
-        button2.setVisibility(View.GONE);
-        button3.setVisibility(View.GONE);
-
-        if (hidden[position]) {
-            if (position < 7 && characters[position] != null)
-                button3.setVisibility(View.VISIBLE);
-        }
-        else if (position == selected)
-            button2.setVisibility(View.VISIBLE);
+        if (characters[position] == null)
+            button.setVisibility(View.GONE);
         else
             button.setVisibility(View.VISIBLE);
+
+        if (pile[position])
+            button.setBackground(ResourcesCompat.getDrawable(res, R.drawable.empty_pile, null));
+        else if (position == highlighted)
+            button.setBackground(ResourcesCompat.getDrawable(res, R.drawable.higlighted_card, null));
+        else if (position == selected)
+            button.setBackground(ResourcesCompat.getDrawable(res, R.drawable.selected_card, null));
+        else if ("".equals(character))
+            button.setBackground(ResourcesCompat.getDrawable(res, R.drawable.card_back, null));
+        else
+            button.setBackground(ResourcesCompat.getDrawable(res, R.drawable.rounded_corner, null));
 
         return convertView;
     }

@@ -15,21 +15,5 @@
         android:textSize="20sp"
         tools:text="10♥" />
 
-    <TextView
-        android:id="@+id/input_button2"
-        android:layout_width="40dp"
-        android:layout_height="60dp"
-        android:gravity="center_horizontal|center_vertical"
-        android:background="@drawable/selected_card"
-        android:textSize="20sp"
-        tools:text="10♥" />
-    <TextView
-        android:id="@+id/input_button3"
-        android:layout_width="40dp"
-        android:layout_height="60dp"
-        android:gravity="center_horizontal|center_vertical"
-        android:background="@drawable/empty_pile"
-        android:textSize="20sp" />
-
 
 </LinearLayout>
