@@ -296,6 +296,19 @@ public class playActivity extends AppCompatActivity {
         return convert;
     }
     private void UpdateGridView(NodeList<Card>[] piles){
+        if (
+                piles[0].getCount() == 0
+                && piles[1].getCount() == 0
+                && (piles[2].getCount() == 0 || !piles[2].peek(0).isHidden())
+                && (piles[3].getCount() == 0 || !piles[3].peek(0).isHidden())
+                && (piles[4].getCount() == 0 || !piles[4].peek(0).isHidden())
+                && (piles[5].getCount() == 0 || !piles[5].peek(0).isHidden())
+                && (piles[6].getCount() == 0 || !piles[6].peek(0).isHidden())
+                && (piles[7].getCount() == 0 || !piles[7].peek(0).isHidden())
+                && (piles[8].getCount() == 0 || !piles[8].peek(0).isHidden())
+        )
+            gameOver(true);
+
         for (int i = 2; i < 9; i++) {
             int j = 0;
 
@@ -434,6 +447,10 @@ public class playActivity extends AppCompatActivity {
 
     }
     private void gameOver(boolean winCondition){
+        klondike = null;
+        from = -1;
+        amount = -1;
+
         Intent intent = new Intent(getBaseContext(),  MainActivity.class);
         intent.putExtra("winCondition", winCondition);
         startActivity(intent);
