@@ -104,25 +104,29 @@ public class playActivity extends AppCompatActivity {
         amount = bestMove.Amount;
 
         if (bestMove.To < 2) {
-            inputMain.setSelected(-1);
-            inputTop.setSelected(bestMove.From);
-
             inputMain.setSuggested(-1);
             inputTop.setSuggested(bestMove.To);
         }
         else if (bestMove.To > 8){
-            inputMain.setSelected(-1);
-            inputTop.setSelected(bestMove.From-6);
-
             inputMain.setSuggested(-1);
             inputTop.setSuggested(bestMove.To-6);
         }
         else {
-            inputMain.setSelected(bestMove.From+(klondike.piles[from].getCount()-amount)*7-2);
-            inputTop.setSelected(-1);
-
             inputMain.setSuggested(bestMove.To+(klondike.piles[bestMove.To].getCount()-1)*7-2);
             inputTop.setSuggested(-1);
+        }
+
+        if (bestMove.To < 2) {
+            inputMain.setSelected(-1);
+            inputTop.setSelected(bestMove.From);
+        }
+        else if (bestMove.To > 8){
+            inputMain.setSelected(-1);
+            inputTop.setSelected(bestMove.From-6);
+        }
+        else {
+            inputMain.setSelected(bestMove.From+(klondike.piles[from].getCount()-amount)*7-2);
+            inputTop.setSelected(-1);
         }
 
         inputMain.notifyDataSetChanged();

@@ -98,8 +98,12 @@ public class InputAdapter extends BaseAdapter {
         else
             button.setVisibility(View.VISIBLE);
 
-        if (pile[position])
-            button.setBackground(ResourcesCompat.getDrawable(res, R.drawable.empty_pile, null));
+        if (pile[position]) {
+            if (position == suggested)
+                button.setBackground(ResourcesCompat.getDrawable(res, R.drawable.selected_pile, null));
+            else
+                button.setBackground(ResourcesCompat.getDrawable(res, R.drawable.empty_pile, null));
+        }
         else if (position == highlighted)
             button.setBackground(ResourcesCompat.getDrawable(res, R.drawable.higlighted_card, null));
         else if (position == suggested)
