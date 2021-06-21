@@ -121,7 +121,7 @@ public class playActivity extends AppCompatActivity {
             inputMain.setSelected(bestMove.From+(klondike.piles[from].getCount()-amount)*7-2);
             inputTop.setSelected(-1);
 
-            inputMain.setHighlighted(bestMove.To+klondike.piles[bestMove.To].getCount()*7-2);
+            inputMain.setHighlighted(bestMove.To+(klondike.piles[bestMove.To].getCount()-1)*7-2);
             inputTop.setHighlighted(-1);
         }
 
