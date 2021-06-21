@@ -132,7 +132,7 @@ public class Klondike {
 
         Card fromCard = piles[from].peek(piles[from].getCount() - amount);
 
-        if (fromCard.isHidden())
+        if (fromCard.isHidden() || fromCard.isUnknown())
             return false;
 
         boolean fromIsStack = from > 1 && from < 9;
