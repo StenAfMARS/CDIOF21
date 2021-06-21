@@ -86,24 +86,19 @@ public class Klondike {
         List<Move> moves = new LinkedList<>();
 
         moves.add(new Move(0, 1));
-        // From 1 to others
-        for (int to = 2; to < 13; to++) {
-            if (isLegalMove(1, to))
-                moves.add(new Move(1, to));
-        }
         // From stack to stack
         for (int from = 2; from < 9; from++) {
             for (int to = 2; to < 9; to++) {
-                for (int amount = 1; amount <= 13; amount++) {
+                for (int amount = 2; amount <= 13; amount++) {
                     if (isLegalMove(from, to, amount))
                         moves.add(new Move(from, to, amount));
                 }
             }
         }
 
-        // From Suit
-        for (int from = 9; from < 13; from++) {
-            for (int to = 2; to < 9; to++) {
+
+        for (int from = 0; from < 13; from++) {
+            for (int to = 0; to < 13; to++) {
                 if (isLegalMove(from, to))
                     moves.add(new Move(from, to));
             }

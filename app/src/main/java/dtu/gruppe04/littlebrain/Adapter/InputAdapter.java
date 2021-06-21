@@ -100,10 +100,10 @@ public class InputAdapter extends BaseAdapter {
 
         if (pile[position])
             button.setBackground(ResourcesCompat.getDrawable(res, R.drawable.empty_pile, null));
-        else if (position == suggested)
-            button.setBackground(ResourcesCompat.getDrawable(res, R.drawable.best_move, null));
         else if (position == highlighted)
             button.setBackground(ResourcesCompat.getDrawable(res, R.drawable.higlighted_card, null));
+        else if (position == suggested)
+            button.setBackground(ResourcesCompat.getDrawable(res, R.drawable.best_move, null));
         else if (position == selected)
             button.setBackground(ResourcesCompat.getDrawable(res, R.drawable.selected_card, null));
         else if ("".equals(character))

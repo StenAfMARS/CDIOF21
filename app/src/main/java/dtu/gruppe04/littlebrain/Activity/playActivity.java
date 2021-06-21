@@ -305,6 +305,9 @@ public class playActivity extends AppCompatActivity {
         return convert;
     }
     private void UpdateGridView(NodeList<Card>[] piles){
+        inputMain.setSuggested(-1);
+        inputTop.setSuggested(-1);
+
         if (
                 piles[0].getCount() == 0
                 && piles[1].getCount() == 0
