@@ -306,7 +306,8 @@ public class playActivity extends AppCompatActivity {
 
         IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
         if (intentResult != null){
-
+            Toast.makeText(this,intentResult.getContents(),Toast.LENGTH_LONG).show();
+ /*
             if (intentResult.getContents() != null){
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setMessage(intentResult.getContents());
@@ -328,6 +329,8 @@ public class playActivity extends AppCompatActivity {
             } else {
                 Toast.makeText(this,"No Results",Toast.LENGTH_LONG).show();
             }
+
+  */
 
 
 
