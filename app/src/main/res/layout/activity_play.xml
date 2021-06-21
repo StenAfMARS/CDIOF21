@@ -22,7 +22,7 @@
         android:stretchMode="columnWidth"
         android:verticalSpacing="-20dp"
 
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/openCameraId"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gridviewtop">
@@ -34,7 +34,7 @@
         android:layout_width="0dp"
         android:layout_height="70dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="20dp"
         android:columnWidth="25dp"
         android:gravity="center"
@@ -52,32 +52,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Detect"
-        app:layout_constraintBottom_toTopOf="@+id/gridviewtop"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.808"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@+id/BTN_Hint"
+        app:layout_constraintEnd_toStartOf="@+id/BTN_Hint"
+        app:layout_constraintStart_toEndOf="@+id/ScanButtonId" />
 
     <Button
         android:id="@+id/ScanButtonId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
         android:text="QR"
-        app:layout_constraintBottom_toTopOf="@+id/gridviewtop"
-        app:layout_constraintEnd_toStartOf="@+id/openCameraId"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@+id/BTN_Hint"
+        app:layout_constraintStart_toStartOf="@+id/gridviewbutton" />
 
     <Button
         android:id="@+id/BTN_Hint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hint"
+        android:layout_marginBottom="20dp"
         android:onClick="SuggestMove"
-        app:layout_constraintBottom_toTopOf="@+id/gridviewtop"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.894" />
+        android:text="Hint"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/gridviewbutton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
