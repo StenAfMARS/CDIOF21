@@ -45,6 +45,8 @@ public class Klondike {
         topCard(from).setHidden(false);
         piles[to].cut(piles[from].getCount()-amount,piles[from]);
 
+        piles[from].peek(-1).setHidden(false);
+
         return true;
     }
 
