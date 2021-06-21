@@ -13,8 +13,9 @@
     <stroke android:width="4dp" android:color="#464" />
 
     <!--- This is the background color -->
-    <gradient android:centerColor="#ede" />
+    <!--<gradient android:centerColor="#ede" />
     <gradient android:endColor="#bdb" />
     <gradient android:startColor="#dbe" />
-    <gradient android:angle="270" />
+    <gradient android:angle="270" /> -->
+    <solid android:color="#4CAF50" />
 </shape>
