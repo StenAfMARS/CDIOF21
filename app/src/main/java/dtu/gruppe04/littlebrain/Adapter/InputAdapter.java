@@ -25,6 +25,15 @@ public class InputAdapter extends BaseAdapter {
     }
 
     int selected = -1;
+    int highlighted = -1;
+
+    public int getHighlighted() {
+        return highlighted;
+    }
+
+    public void setHighlighted(int highlighted) {
+        this.highlighted = highlighted;
+    }
 
     // 1
     public InputAdapter(Context context, String[] text) {
@@ -86,8 +95,12 @@ public class InputAdapter extends BaseAdapter {
 
         if (pile[position])
             button.setBackground(ResourcesCompat.getDrawable(res, R.drawable.empty_pile, null));
+        else if (position == highlighted)
+            button.setBackground(ResourcesCompat.getDrawable(res, R.drawable.higlighted_card, null));
         else if (position == selected)
             button.setBackground(ResourcesCompat.getDrawable(res, R.drawable.selected_card, null));
+        else if ("".equals(character))
+            button.setBackground(ResourcesCompat.getDrawable(res, R.drawable.card_back, null));
         else
             button.setBackground(ResourcesCompat.getDrawable(res, R.drawable.rounded_corner, null));
 

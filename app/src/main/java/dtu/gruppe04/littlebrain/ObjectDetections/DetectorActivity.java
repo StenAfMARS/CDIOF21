@@ -214,11 +214,11 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                 result.setLocation(location);
                 mappedRecognitions.add(result);
                 LOGGER.i("Result " + result.getTitle());
-                /*Intent intent = new Intent (DetectorActivity.this, playActivity.class);
+                Intent intent = new Intent (DetectorActivity.this, playActivity.class);
                 intent.putExtra("OutputOfCard", result.getTitle());
                 startActivity(intent);
 
-                 */
+
 
               }
             }

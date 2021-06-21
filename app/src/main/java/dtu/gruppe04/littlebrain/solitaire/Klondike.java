@@ -24,16 +24,14 @@ public class Klondike {
             piles[i] = new NodeList<>();
         }
 
-        Random random = new Random();
-
         for (int i = 0; i < 7; i++) {
             for (int j = 0; j <= i; j++) {
-                piles[i+2].append(new Card(Suit.values()[random.nextInt(4)], random.nextInt(13) + 1, false));
+                piles[i+2].append(new Card(j != i));
             }
         }
 
         for (int i = 0; i < 24; i++) {
-            piles[0].append(new Card(Suit.values()[random.nextInt(4)], random.nextInt(13) + 1, true));
+            piles[0].append(new Card(true));
         }
     }
 

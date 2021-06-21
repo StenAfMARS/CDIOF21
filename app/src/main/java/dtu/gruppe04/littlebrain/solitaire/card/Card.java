@@ -7,9 +7,19 @@ public class Card implements Comparable<Card>
     private Suit SUIT;
     private int VALUE;
     private boolean hidden;
+    private boolean unknown;
 
-    public Card() {
-        this(Suit.SPADES, 1, false);
+    public Card(boolean hidden) {
+        this(Suit.SPADES, 1, hidden);
+        unknown = true;
+    }
+
+    public void setUnknown(boolean unknown) {
+        this.unknown = unknown;
+    }
+
+    public boolean isUnknown() {
+        return unknown;
     }
 
     public Card(Suit suit, int value, boolean hidden){

@@ -40,8 +40,10 @@ public class playActivity extends AppCompatActivity {
     String[] charArray;
     String[] charArrayForTop;
 
-    static int from = -1;
-    static int amount = -1;
+    int from = -1;
+    int amount = -1;
+
+    static Card scanCard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +55,14 @@ public class playActivity extends AppCompatActivity {
 
         openCamera = findViewById(R.id.openCameraId);
         ScanButton = findViewById(R.id.ScanButtonId);
+
+
+        String result = getIntent().getStringExtra("OutputOfCard");
+        //Toast.makeText(getApplicationContext(),result,Toast.LENGTH_LONG).show();
+
+        if (result != null){
+            cardFromDetection(result, scanCard);
+        }
 
         initGridView();
 
@@ -70,12 +80,6 @@ public class playActivity extends AppCompatActivity {
                 ScanCode();
             }
         });
-        String result = getIntent().getStringExtra("OutputOfCard");
-        //Toast.makeText(getApplicationContext(),result,Toast.LENGTH_LONG).show();
-
-        if (result != null){
-            cardFromDetection(result, klondike.piles[from].peek(-amount));
-        }
     }
 
     private void cardFromDetection(String string, Card card){
@@ -134,6 +138,8 @@ public class playActivity extends AppCompatActivity {
         if(string.contains("K")){
             card.setVALUE(13);
         }
+
+        card.setUnknown(false);
 
         /*
         Ace - A
@@ -259,7 +265,18 @@ public class playActivity extends AppCompatActivity {
                 if (j == 0)
                     inputMain.setPile(i-2, false);
 
-                charArray[i+j++*7-2] = card.toToon();
+                if (card.isHidden())
+                    charArray[i+j*7-2] = "";
+                else if (card.isUnknown()) {
+                    charArray[i+j*7-2] = "";
+                    inputMain.setHighlighted(i+j*7-2);
+                    inputTop.setHighlighted(-1);
+                    scanCard = card;
+                }
+                else
+                    charArray[i+j*7-2] = card.toToon();
+
+                j++;
             }
 
             if (j == 0){
@@ -284,8 +301,17 @@ public class playActivity extends AppCompatActivity {
             charArrayForTop[1] = "";
             inputTop.setPile(1, true);
         } else {
-            charArrayForTop[1] = piles[1].peek(-1).toToon();
+
             inputTop.setPile(1, false);
+
+            if (piles[1].peek(-1).isUnknown()) {
+                charArrayForTop[1] = "";
+                inputMain.setHighlighted(-1);
+                inputTop.setHighlighted(1);
+                scanCard = piles[1].peek(-1);
+            }
+            else
+                charArrayForTop[1] = piles[1].peek(-1).toToon();
         }
 
         if(piles[9].getCount() == 0) {
@@ -340,7 +366,7 @@ public class playActivity extends AppCompatActivity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setMessage(intentResult.getContents());
                 builder.setTitle("Scanning result");
-                builder.setPositiveButton("Scan agin", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton("Scan again", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         ScanCode();
