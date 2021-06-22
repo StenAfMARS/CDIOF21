@@ -26,15 +26,16 @@ public class Klondike {
             piles[i] = new NodeList<>();
         }
 
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < 2; i++) {
             for (int j = 0; j <= i; j++) {
                 piles[i+2].append(new Card(j != i));
             }
         }
 
-        for (int i = 0; i < 24; i++) {
-            piles[0].append(new Card(true));
-        }
+        piles[9].append(new Card(Suit.SPADES, 13, false));
+        piles[10].append(new Card(Suit.DIAMONDS, 13, false));
+        piles[11].append(new Card(Suit.CLUBS, 11, false));
+        piles[12].append(new Card(Suit.HEARTS, 12, false));
     }
 
     public boolean doMove(int from, int to, int amount){
