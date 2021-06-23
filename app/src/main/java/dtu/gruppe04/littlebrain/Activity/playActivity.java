@@ -58,6 +58,9 @@ public class playActivity extends AppCompatActivity {
 
 
         String result = getIntent().getStringExtra("OutputOfCard");
+
+
+
         //Toast.makeText(getApplicationContext(),result,Toast.LENGTH_LONG).show();
 
         if (result != null){
@@ -81,7 +84,35 @@ public class playActivity extends AppCompatActivity {
             }
         });
     }
+    private void ScanCode() {
+        IntentIntegrator intentIntegrator = new IntentIntegrator(this);
+        intentIntegrator.setCaptureActivity(Capturece.class);
+        intentIntegrator.setOrientationLocked(false);
+        intentIntegrator.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
+        intentIntegrator.setPrompt("Scanning code");
+        intentIntegrator.initiateScan();
+    }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode,  Intent data) {
+
+        IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
+        if (intentResult != null){
+          //  Toast.makeText(this,intentResult.getContents(),Toast.LENGTH_LONG).show();
+
+            cardFromDetection(intentResult.getContents(), scanCard);
+            scanCard = null;
+            inputMain.setHighlighted(-1);
+            inputTop.setHighlighted(-1);
+            UpdateGridView(klondike.piles);
+
+
+        }else {
+            super.onActivityResult(requestCode, resultCode, data);
+
+        }
+
+    }
     public void SuggestMove(View v){
         Klondike.Move[] moves = klondike.possibleMoves();
 
@@ -414,54 +445,7 @@ public class playActivity extends AppCompatActivity {
         }
     }
 
-    private void ScanCode() {
-        IntentIntegrator intentIntegrator = new IntentIntegrator(this);
-        intentIntegrator.setCaptureActivity(Capturece.class);
-        intentIntegrator.setOrientationLocked(false);
-        intentIntegrator.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
-        intentIntegrator.setPrompt("Scanning code");
-        intentIntegrator.initiateScan();
-    }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode,  Intent data) {
-
-        IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
-        if (intentResult != null){
-            Toast.makeText(this,intentResult.getContents(),Toast.LENGTH_LONG).show();
- /*
-            if (intentResult.getContents() != null){
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setMessage(intentResult.getContents());
-                builder.setTitle("Scanning result");
-                builder.setPositiveButton("Scan again", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        ScanCode();
-                    }
-                }).setNegativeButton("finish", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                    }
-                });
-                AlertDialog dialog = builder.create();
-                dialog.show();
-
-            } else {
-                Toast.makeText(this,"No Results",Toast.LENGTH_LONG).show();
-            }
-
-  */
-
-
-
-        }else {
-            super.onActivityResult(requestCode, resultCode, data);
-
-        }
-
-    }
     private void gameOver(boolean winCondition){
         klondike = null;
         from = -1;
