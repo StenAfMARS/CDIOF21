@@ -430,9 +430,14 @@ public class playActivity extends AppCompatActivity {
 
         IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
         if (intentResult != null){
+            cardFromDetection(intentResult.getContents(), scanCard);
+            scanCard = null;
+            inputMain.setHighlighted(-1);
+            inputTop.setHighlighted(-1);
+            UpdateGridView(klondike.piles);
             //Toast.makeText(this,intentResult.getContents(),Toast.LENGTH_LONG).show();
 
-            if (intentResult.getContents() != null){
+            /*if (intentResult.getContents() != null){
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setMessage(intentResult.getContents());
                 builder.setTitle("Scanning result");
@@ -454,6 +459,8 @@ public class playActivity extends AppCompatActivity {
                 Toast.makeText(this,"No Results",Toast.LENGTH_LONG).show();
             }
 
+
+             */
 
 
 
