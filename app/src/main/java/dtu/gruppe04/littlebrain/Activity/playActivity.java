@@ -15,12 +15,16 @@ import android.widget.Toast;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 import dtu.gruppe04.littlebrain.Adapter.InputAdapter;
 import dtu.gruppe04.littlebrain.ObjectDetections.DetectorActivity;
 import dtu.gruppe04.littlebrain.R;
 import dtu.gruppe04.littlebrain.solitaire.Klondike;
 import dtu.gruppe04.littlebrain.solitaire.NodeList;
 import dtu.gruppe04.littlebrain.solitaire.card.Card;
+import dtu.gruppe04.littlebrain.solitaire.card.Suit;
 
 import static dtu.gruppe04.littlebrain.solitaire.card.Suit.CLUBS;
 import static dtu.gruppe04.littlebrain.solitaire.card.Suit.DIAMONDS;
@@ -52,8 +56,19 @@ public class playActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
 
-        if (klondike == null)
-            klondike = new Klondike();
+        if (klondike == null) {
+            ArrayList<Card> cards = new ArrayList<>();
+
+            for (int i = 1; i < 14; i++) {
+                for (int j = 0; j < 4; j++) {
+                    cards.add(new Card(Suit.values()[j], i, true));
+                }
+            }
+
+            Collections.shuffle(cards);
+
+            klondike = new Klondike(cards);
+        }
 
         openCamera = findViewById(R.id.openCameraId);
         ScanButton = findViewById(R.id.ScanButtonId);
@@ -92,17 +107,7 @@ public class playActivity extends AppCompatActivity {
         if (moves.length == 0)
             return;
 
-        int bestScore = Integer.MAX_VALUE;
-        Klondike.Move bestMove = moves[0];
-
-        for (Klondike.Move move : moves){
-            int score = klondike.calculateValue(move);
-
-            if (score < bestScore) {
-                bestMove = move;
-                bestScore = score;
-            }
-        }
+        Klondike.Move bestMove = klondike.bestMove(4);
 
         from = bestMove.From;
         amount = bestMove.Amount;

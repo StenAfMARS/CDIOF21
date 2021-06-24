@@ -2,6 +2,7 @@ package dtu.gruppe04.littlebrain.solitaire;
 
 import org.tensorflow.lite.Interpreter;
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -40,6 +41,32 @@ public class Klondike {
         }
     }
 
+    public Klondike(Collection<Card> cards){
+        piles = new NodeList[13];
+
+        Card[] cardsArray = cards.toArray(new Card[0]);
+        int x = 0;
+
+        for (int i = 0; i < 13; i++) {
+            piles[i] = new NodeList<>();
+        }
+
+        for (int i = 0; i < 7; i++) {
+            for (int j = 0; j <= i; j++) {
+                piles[i+2].append(cardsArray[x++]);
+            }
+        }
+
+        for (int i = 0; i < 24; i++) {
+            piles[0].append(cardsArray[x++]);
+        }
+
+
+        for (int i = 2; i < 9; i++) {
+            piles[i].peek(-1).setHidden(false);
+        }
+    }
+
     public boolean doMove(int from, int to, int amount){
         if (!isLegalMove(from, to, amount))
             return false;
@@ -50,7 +77,9 @@ public class Klondike {
 
         piles[to].cut(piles[from].getCount()-amount,piles[from]);
 
-        if (piles[from].getCount() > 0)
+        if (from == 0)
+            piles[to].peek(-1).setHidden(false);
+        else if (piles[from].getCount() > 0)
             piles[from].peek(-1).setHidden(false);
 
         return true;
@@ -59,14 +88,24 @@ public class Klondike {
     public int calculateValue(){
         int output = 0;
 
-        for (int i = 9; i < 13; i++)
+        for (int i = 0; i < 2; i++)
+            output += piles[i].getCount() * 3;
+
+        for (int i = 2; i < 9; i++)
             output += piles[i].getCount();
+
+        for (int i = 2; i < 9; i++)
+            if (piles[i].getCount() > 0 && piles[i].peek(0).getValue() == 13)
+                output -= 10;
+
+        for (int i = 9; i < 13; i++)
+            output -= piles[i].getCount() * 3;
 
         for (int i = 2; i < 9; i++) {
             int j = 0;
             for (Card card : piles[i])
-                if (card.isHidden() && j != piles[i].getCount() - 1)
-                    output += j++;
+                if (card.isHidden() && j++ != piles[i].getCount() - 1)
+                    output += 50;
         }
 
         return output;
@@ -85,10 +124,77 @@ public class Klondike {
         return val;
     }
 
+    public Move bestMove(int depth){
+        Move[] moves = possibleMoves();
+
+        int bestScore = Integer.MAX_VALUE;
+        Klondike.Move bestMove = moves[0];
+
+        for (Klondike.Move move : moves){
+            int score = calculateValue(move, depth);
+
+            if (score < bestScore) {
+                bestMove = move;
+                bestScore = score;
+            }
+        }
+
+        return bestMove;
+    }
+
+    public int calculateValue(Move move, int depth){
+        if (!isLegalMove(move.From, move.To, move.Amount))
+            return Integer.MAX_VALUE;
+
+        boolean revealedCard = false;
+        int val;
+
+        piles[move.To].cut(piles[move.From].getCount()-move.Amount,piles[move.From]);
+
+        if (move.From == 0){
+            if (piles[move.To].peek(-1).isHidden()) {
+                piles[move.To].peek(-1).setHidden(false);
+                revealedCard = true;
+            }
+        }
+        else{
+            if (piles[move.From].getCount() > 0 && piles[move.From].peek(-1).isHidden()) {
+                piles[move.From].peek(-1).setHidden(false);
+                revealedCard = true;
+            }
+        }
+
+        if (depth == 0)
+            val = calculateValue();
+        else
+            val = Math.min(calculateValue(bestMove(depth - 1)),calculateValue());
+
+
+        if (move.From == 0) {
+            if (revealedCard)
+                piles[move.To].peek(-1).setHidden(true);
+        }
+        else{
+            if (revealedCard)
+                piles[move.From].peek(-1).setHidden(true);
+        }
+
+
+        piles[move.From].cut(piles[move.To].getCount()-move.Amount,piles[move.To]);
+
+        return val;
+    }
+
     public Move[] possibleMoves(){
         List<Move> moves = new LinkedList<>();
 
-        moves.add(new Move(0, 1));
+        for (int from = 0; from < 13; from++) {
+            for (int to = 0; to < 13; to++) {
+                if (isLegalMove(from, to))
+                    moves.add(new Move(from, to));
+            }
+        }
+
         // From stack to stack
         for (int from = 2; from < 9; from++) {
             for (int to = 2; to < 9; to++) {
@@ -96,14 +202,6 @@ public class Klondike {
                     if (isLegalMove(from, to, amount))
                         moves.add(new Move(from, to, amount));
                 }
-            }
-        }
-
-
-        for (int from = 0; from < 13; from++) {
-            for (int to = 0; to < 13; to++) {
-                if (isLegalMove(from, to))
-                    moves.add(new Move(from, to));
             }
         }
 
