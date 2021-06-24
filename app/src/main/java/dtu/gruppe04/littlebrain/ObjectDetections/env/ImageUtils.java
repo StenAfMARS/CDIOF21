@@ -22,6 +22,8 @@ import android.os.Environment;
 import java.io.File;
 import java.io.FileOutputStream;
 
+// Group nr. 4
+
 /** Utility class for manipulating images. */
 public class ImageUtils {
   // This value is 2 ^ 18 - 1, and is used to clamp the RGB values before their ranges

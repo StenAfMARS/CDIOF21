@@ -2,6 +2,8 @@ package dtu.gruppe04.littlebrain.solitaire.card;
 
 import android.graphics.Color;
 
+// Group nr. 4
+
 public enum  Suit {
     SPADES, DIAMONDS, CLUBS, HEARTS;
 

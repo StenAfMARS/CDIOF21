@@ -25,6 +25,8 @@ import android.graphics.Typeface;
 
 import java.util.Vector;
 
+// Group nr. 4
+
 /** A class that encapsulates the tedious bits of rendering legible, bordered text onto a canvas. */
 public class BorderedText {
   private final Paint interiorPaint;

@@ -56,6 +56,8 @@ import dtu.gruppe04.littlebrain.ObjectDetections.env.ImageUtils;
 import dtu.gruppe04.littlebrain.ObjectDetections.env.Logger;
 import dtu.gruppe04.littlebrain.R;
 
+// Group nr. 4
+
 public abstract class CameraActivity extends AppCompatActivity
         implements OnImageAvailableListener,
         Camera.PreviewCallback,

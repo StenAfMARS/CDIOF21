@@ -10,6 +10,8 @@ import android.widget.Button;
 import dtu.gruppe04.littlebrain.Activity.MainActivity;
 import dtu.gruppe04.littlebrain.R;
 
+// Group nr. 4
+
 public class RulesActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override

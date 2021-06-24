@@ -23,6 +23,8 @@ import android.view.View;
 import java.util.LinkedList;
 import java.util.List;
 
+// Group nr. 4
+
 /** A simple View providing a render callback to other classes. */
 public class OverlayView extends View {
   private final List<DrawCallback> callbacks = new LinkedList<DrawCallback>();

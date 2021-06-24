@@ -9,6 +9,9 @@ import java.util.Random;
 import dtu.gruppe04.littlebrain.solitaire.card.Card;
 import dtu.gruppe04.littlebrain.solitaire.card.Suit;
 
+
+// Group nr. 4
+
 public class Klondike {
     public NodeList<Card>[] piles;
 

@@ -6,6 +6,8 @@ import java.util.Iterator;
 import java.util.Spliterator;
 import java.util.function.Consumer;
 
+// Group nr. 4
+
 public class NodeList<T> implements Iterable<T> {
     private int count;
     private Node<T> head;

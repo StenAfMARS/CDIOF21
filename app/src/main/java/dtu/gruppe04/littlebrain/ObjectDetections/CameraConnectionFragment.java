@@ -67,6 +67,8 @@ import dtu.gruppe04.littlebrain.ObjectDetections.customview.AutoFitTextureView;
 import dtu.gruppe04.littlebrain.ObjectDetections.env.Logger;
 import dtu.gruppe04.littlebrain.R;
 
+// Group nr. 4
+
 @SuppressLint("ValidFragment")
 public class CameraConnectionFragment extends Fragment {
   private static final Logger LOGGER = new Logger();

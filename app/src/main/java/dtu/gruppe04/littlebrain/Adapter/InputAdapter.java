@@ -14,6 +14,8 @@ import androidx.core.content.res.ResourcesCompat;
 import dtu.gruppe04.littlebrain.R;
 
 
+// Group nr. 4
+
 public class InputAdapter extends BaseAdapter {
 
     private final Context mContext;

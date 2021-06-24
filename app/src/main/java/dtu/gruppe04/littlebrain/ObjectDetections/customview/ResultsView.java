@@ -21,6 +21,8 @@ import com.example.lib_task_api.tflite.Detector;
 
 import java.util.List;
 
+// Group nr. 4
+
 public interface ResultsView {
   public void setResults(final List<Detector.Recognition> results);
 }

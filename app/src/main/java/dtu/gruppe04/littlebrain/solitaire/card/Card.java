@@ -2,6 +2,8 @@ package dtu.gruppe04.littlebrain.solitaire.card;
 
 import android.renderscript.Sampler;
 
+// Group nr. 4
+
 public class Card implements Comparable<Card>
 {
     private Suit SUIT;

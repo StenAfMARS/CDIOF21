@@ -48,6 +48,8 @@ import dtu.gruppe04.littlebrain.ObjectDetections.env.Logger;
 import dtu.gruppe04.littlebrain.ObjectDetections.tracking.MultiBoxTracker;
 import dtu.gruppe04.littlebrain.R;
 
+// Group nr. 4
+
 /**
  * An activity that uses a TensorFlowMultiBoxDetector and ObjectTracker to detect and then track
  * objects.

@@ -21,6 +21,8 @@ import org.tensorflow.lite.task.vision.detector.Detection;
 import org.tensorflow.lite.task.vision.detector.ObjectDetector;
 import org.tensorflow.lite.task.vision.detector.ObjectDetector.ObjectDetectorOptions;
 
+// Group nr. 4
+
 public class ObjectDetection {
 
     ObjectDetector objectDetector;

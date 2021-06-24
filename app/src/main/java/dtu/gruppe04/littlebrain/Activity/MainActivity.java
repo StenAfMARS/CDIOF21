@@ -17,6 +17,8 @@ import java.nio.channels.FileChannel;
 
 import dtu.gruppe04.littlebrain.R;
 
+// Group nr. 4
+
 public class MainActivity extends AppCompatActivity  implements View.OnClickListener {
 
     Interpreter tflite;

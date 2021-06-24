@@ -6,6 +6,8 @@ import android.os.Bundle;
 
 import dtu.gruppe04.littlebrain.R;
 
+// Group nr. 4
+
 public class ShowBoard extends AppCompatActivity {
 
     @Override

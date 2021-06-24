@@ -41,6 +41,8 @@ import dtu.gruppe04.littlebrain.ObjectDetections.env.ImageUtils;
 import dtu.gruppe04.littlebrain.ObjectDetections.env.Logger;
 import dtu.gruppe04.littlebrain.R;
 
+// Group nr. 4
+
 public class LegacyCameraConnectionFragment extends Fragment {
   private static final Logger LOGGER = new Logger();
   /** Conversion from screen rotation to JPEG orientation. */

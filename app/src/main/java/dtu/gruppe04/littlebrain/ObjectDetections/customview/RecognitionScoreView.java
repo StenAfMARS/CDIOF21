@@ -27,6 +27,8 @@ import com.example.lib_task_api.tflite.Detector;
 
 import java.util.List;
 
+// Group nr. 4
+
 public class RecognitionScoreView extends View implements ResultsView {
   private static final float TEXT_SIZE_DIP = 14;
   private final float textSizePx;

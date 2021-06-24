@@ -27,6 +27,8 @@ import static dtu.gruppe04.littlebrain.solitaire.card.Suit.DIAMONDS;
 import static dtu.gruppe04.littlebrain.solitaire.card.Suit.HEARTS;
 import static dtu.gruppe04.littlebrain.solitaire.card.Suit.SPADES;
 
+// Group nr. 4
+
 public class playActivity extends AppCompatActivity {
 
 
