@@ -23,6 +23,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 
 // Group nr. 4
+// Example code provided by tensorflow
 
 /** Utility class for manipulating images. */
 public class ImageUtils {

@@ -57,6 +57,7 @@ import dtu.gruppe04.littlebrain.ObjectDetections.env.Logger;
 import dtu.gruppe04.littlebrain.R;
 
 // Group nr. 4
+// Example code provided by tensorflow, modified to interface with the UI
 
 public abstract class CameraActivity extends AppCompatActivity
         implements OnImageAvailableListener,

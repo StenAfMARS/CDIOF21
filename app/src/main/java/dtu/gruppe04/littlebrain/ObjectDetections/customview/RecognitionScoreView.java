@@ -28,6 +28,7 @@ import com.example.lib_task_api.tflite.Detector;
 import java.util.List;
 
 // Group nr. 4
+// Example code provided by tensorflow
 
 public class RecognitionScoreView extends View implements ResultsView {
   private static final float TEXT_SIZE_DIP = 14;

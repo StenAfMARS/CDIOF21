@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 // Group nr. 4
+// Example code provided by tensorflow
 
 /** Size class independent of a Camera object. */
 public class Size implements Comparable<Size>, Serializable {

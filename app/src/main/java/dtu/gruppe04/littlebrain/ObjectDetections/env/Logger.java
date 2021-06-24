@@ -21,6 +21,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 // Group nr. 4
+// Example code provided by tensorflow
 
 /** Wrapper for the platform log function, allows convenient message prefixing and log disabling. */
 public final class Logger {

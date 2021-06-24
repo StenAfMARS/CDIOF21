@@ -24,6 +24,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 // Group nr. 4
+// Example code provided by tensorflow
 
 /** A simple View providing a render callback to other classes. */
 public class OverlayView extends View {

@@ -39,6 +39,9 @@ import dtu.gruppe04.littlebrain.ObjectDetections.env.BorderedText;
 import dtu.gruppe04.littlebrain.ObjectDetections.env.ImageUtils;
 import dtu.gruppe04.littlebrain.ObjectDetections.env.Logger;
 
+// Group nr. 4
+// Example code provided by tensorflow
+
 /** A tracker that handles non-max suppression and matches existing objects to new detections. */
 public class MultiBoxTracker {
   private static final float TEXT_SIZE_DIP = 18;

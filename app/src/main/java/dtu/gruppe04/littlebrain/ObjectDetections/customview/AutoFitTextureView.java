@@ -21,6 +21,7 @@ import android.util.AttributeSet;
 import android.view.TextureView;
 
 // Group nr. 4
+// Example code provided by tensorflow
 
 /** A {@link TextureView} that can be adjusted to a specified aspect ratio. */
 public class AutoFitTextureView extends TextureView {

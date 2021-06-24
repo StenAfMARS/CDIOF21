@@ -42,6 +42,7 @@ import dtu.gruppe04.littlebrain.ObjectDetections.env.Logger;
 import dtu.gruppe04.littlebrain.R;
 
 // Group nr. 4
+// Example code provided by tensorflow
 
 public class LegacyCameraConnectionFragment extends Fragment {
   private static final Logger LOGGER = new Logger();

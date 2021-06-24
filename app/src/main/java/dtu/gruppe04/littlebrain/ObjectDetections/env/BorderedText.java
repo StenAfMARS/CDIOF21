@@ -26,6 +26,7 @@ import android.graphics.Typeface;
 import java.util.Vector;
 
 // Group nr. 4
+// Example code provided by tensorflow
 
 /** A class that encapsulates the tedious bits of rendering legible, bordered text onto a canvas. */
 public class BorderedText {
